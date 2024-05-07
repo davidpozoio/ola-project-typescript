@@ -9,6 +9,15 @@ export default class MysqlUserRepository extends UserRepository {
     return users;
   }
 
+  async findById(id: string | number | undefined): Promise<User | undefined> {
+    const [[user]] = await pool.query<User[]>(
+      "SELECT * FROM users WHERE id = ?",
+      [id]
+    );
+
+    return user;
+  }
+
   async save(user: User): Promise<User> {
     console.log(user);
     const [createdUser] = await pool.query<ResultSetHeader>(
@@ -23,5 +32,14 @@ export default class MysqlUserRepository extends UserRepository {
       password: user.password,
       area: user.area,
     } as User;
+  }
+
+  async findByEmail(email: string): Promise<User | undefined> {
+    const [[user]] = await pool.query<User[]>(
+      "SELECT * FROM users WHERE email = ?",
+      [email]
+    );
+
+    return user;
   }
 }

@@ -14,6 +14,16 @@ class AuthController {
       user,
     });
   });
+
+  login = asyncErrorHandler(async (req, res) => {
+    const user = await authService.login(req.body);
+    await createTokenCookie(res, { id: user.id });
+
+    res.status(200).json({
+      messsage: "user authenticated!",
+      user,
+    });
+  });
 }
 
 const authController = new AuthController();

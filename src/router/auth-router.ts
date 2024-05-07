@@ -17,4 +17,11 @@ authRouter
     authController.signup
   );
 
+authRouter
+  .route("/login")
+  .post(
+    [body("email").isEmail(), body("password").isString()],
+    authController.login
+  );
+
 export default authRouter;
