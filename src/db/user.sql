@@ -1,0 +1,8 @@
+CREATE TABLE users(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(100) NOT NULL,
+    fullname VARCHAR(300) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    area ENUM("admin", "secretary"),
+    has_access BOOLEAN NOT NULL DEFAULT 0
+);
