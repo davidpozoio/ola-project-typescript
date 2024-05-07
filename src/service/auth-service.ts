@@ -5,7 +5,7 @@ import userService from "./user-service";
 class AuthService {
   async signup(user: User): Promise<User> {
     user.password = await crypPassword(user.password || "");
-    const createdUser = userService.save(user);
+    const createdUser = await userService.save(user);
     return createdUser;
   }
 }
