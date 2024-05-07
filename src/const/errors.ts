@@ -15,6 +15,16 @@ const ERRORS: { [key: string]: ErrorData } = {
     statusCode: 400,
     message: "the provided password is incorrect",
   },
+  USER_NOT_FOUND: {
+    errorCode: "1003",
+    statusCode: 404,
+    message: "user not found",
+  },
+  JWT_NOT_PROVIDED: {
+    errorCode: "2001",
+    statusCode: 400,
+    message: "please, login",
+  },
 };
 
 export default ERRORS;

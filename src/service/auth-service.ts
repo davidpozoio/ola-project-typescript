@@ -1,5 +1,5 @@
 import ERRORS from "../const/errors";
-import { User } from "../types/user";
+import { Roles, User } from "../types/user";
 import crypPassword, { comparePassword } from "../utils/crypt-password";
 import HttpError from "../utils/http-error";
 import userService from "./user-service";
@@ -7,6 +7,7 @@ import userService from "./user-service";
 class AuthService {
   async signup(user: User): Promise<User> {
     user.password = await crypPassword(user.password || "");
+    user.role = Roles.user;
     const createdUser = await userService.save(user);
     return createdUser;
   }

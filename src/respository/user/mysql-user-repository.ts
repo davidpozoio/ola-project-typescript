@@ -19,10 +19,9 @@ export default class MysqlUserRepository extends UserRepository {
   }
 
   async save(user: User): Promise<User> {
-    console.log(user);
     const [createdUser] = await pool.query<ResultSetHeader>(
-      "INSERT INTO users (email, fullname, password, area, has_access) VALUES (?, ?, ?, ?, ?)",
-      [user.email, user.fullname, user.password, user.area, 0]
+      "INSERT INTO users (email, fullname, password, area, has_access, role) VALUES (?, ?, ?, ?, ?, ?)",
+      [user.email, user.fullname, user.password, user.area, 0, user.role]
     );
 
     return {

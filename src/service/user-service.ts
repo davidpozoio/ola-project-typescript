@@ -25,6 +25,15 @@ class UserService extends UserRepository {
 
     return user;
   }
+
+  async findById(id: string | number | undefined): Promise<User | undefined> {
+    const user = await this.userRepository.findById(id);
+    if (!user) {
+      throw new HttpError(ERRORS.USER_NOT_FOUND);
+    }
+
+    return user;
+  }
 }
 
 const userService = new UserService(new MysqlUserRepository());
