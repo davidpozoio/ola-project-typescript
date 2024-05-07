@@ -12,11 +12,7 @@ const requireAuth = asyncErrorHandler(async (req, res, next) => {
   }
 
   const decodedToken = await verifyTokenUser(cookieJwt);
-  const user = await userService.findById(decodedToken.id);
-
-  if (!user) {
-    throw new HttpError(ERRORS.USER_NOT_FOUND);
-  }
+  await userService.findById(decodedToken.id);
 
   req.cookieJwt = cookieJwt;
   req.decodedToken = decodedToken;

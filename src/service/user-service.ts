@@ -26,7 +26,7 @@ class UserService extends UserRepository {
     return user;
   }
 
-  async findById(id: string | number | undefined): Promise<User | undefined> {
+  async findById(id: string | number | undefined): Promise<User> {
     const user = await this.userRepository.findById(id);
     if (!user) {
       throw new HttpError(ERRORS.USER_NOT_FOUND);

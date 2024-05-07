@@ -25,6 +25,11 @@ const ERRORS: { [key: string]: ErrorData } = {
     statusCode: 400,
     message: "please, login",
   },
+  UNAUTHORIZED: {
+    errorCode: "2002",
+    statusCode: 401,
+    message: "unauthorized access",
+  },
 };
 
 export default ERRORS;
