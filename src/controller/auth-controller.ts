@@ -1,6 +1,11 @@
+import ERRORS from "../const/errors";
 import authService from "../service/auth-service";
+import blacklistService from "../service/blacklist-service";
+import { Blacklist } from "../types/blacklist";
+import { TokenPayload } from "../types/token";
 import asyncErrorHandler from "../utils/asyncErrorHandler";
-import { createTokenCookie } from "../utils/cookie-utils";
+import { createTokenCookie, removeTokenCookie } from "../utils/cookie-utils";
+import HttpError from "../utils/http-error";
 
 class AuthController {
   signup = asyncErrorHandler(async (req, res) => {
@@ -22,6 +27,31 @@ class AuthController {
     res.status(200).json({
       messsage: "user authenticated!",
       user,
+    });
+  });
+
+  logout = asyncErrorHandler(async (req, res) => {
+    const cookieJwt = req.cookieJwt as string;
+    const decodedToken = req.decodedToken as TokenPayload;
+
+    const isTokenBlacklisted = await blacklistService.find({
+      user_id: decodedToken.id,
+      token: cookieJwt,
+    } as Blacklist);
+
+    if (isTokenBlacklisted) {
+      throw new HttpError(ERRORS.JWT_IS_EXPIRED);
+    }
+    //black listing the token
+    await blacklistService.save({
+      user_id: decodedToken.id,
+      token: cookieJwt,
+    } as Blacklist);
+
+    removeTokenCookie(res);
+
+    res.json({
+      message: "you are logout!",
     });
   });
 }

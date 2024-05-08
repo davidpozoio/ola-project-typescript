@@ -30,6 +30,11 @@ const ERRORS: { [key: string]: ErrorData } = {
     statusCode: 401,
     message: "unauthorized access",
   },
+  JWT_IS_EXPIRED: {
+    errorCode: "2003",
+    statusCode: 400,
+    message: "the provided jwt is expired, login again",
+  },
 };
 
 export default ERRORS;

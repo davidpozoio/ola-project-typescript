@@ -2,6 +2,7 @@ import { Router } from "express";
 import authController from "../controller/auth-controller";
 import { body } from "express-validator";
 import { UserArea } from "../types/user";
+import requireAuth from "../middleware/require-auth";
 
 const authRouter = Router();
 
@@ -23,5 +24,7 @@ authRouter
     [body("email").isEmail(), body("password").isString()],
     authController.login
   );
+
+authRouter.route("/logout").get(requireAuth, authController.logout);
 
 export default authRouter;
