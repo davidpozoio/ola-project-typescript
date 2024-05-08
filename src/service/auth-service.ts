@@ -1,7 +1,9 @@
 import ERRORS from "../const/errors";
+import { Blacklist } from "../types/blacklist";
 import { Roles, User } from "../types/user";
 import crypPassword, { comparePassword } from "../utils/crypt-password";
 import HttpError from "../utils/http-error";
+import blacklistService from "./blacklist-service";
 import userService from "./user-service";
 
 class AuthService {
@@ -26,6 +28,22 @@ class AuthService {
     loggedUser.password = undefined;
 
     return loggedUser;
+  }
+
+  async logout(blacklist: Blacklist) {
+    const isTokenBlacklisted = await blacklistService.find({
+      user_id: blacklist.user_id,
+      token: blacklist.token,
+    } as Blacklist);
+
+    if (isTokenBlacklisted) {
+      throw new HttpError(ERRORS.JWT_IS_EXPIRED);
+    }
+    //black listing the token
+    await blacklistService.save({
+      user_id: blacklist.user_id,
+      token: blacklist.token,
+    } as Blacklist);
   }
 }
 

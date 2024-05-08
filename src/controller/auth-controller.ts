@@ -34,16 +34,7 @@ class AuthController {
     const cookieJwt = req.cookieJwt as string;
     const decodedToken = req.decodedToken as TokenPayload;
 
-    const isTokenBlacklisted = await blacklistService.find({
-      user_id: decodedToken.id,
-      token: cookieJwt,
-    } as Blacklist);
-
-    if (isTokenBlacklisted) {
-      throw new HttpError(ERRORS.JWT_IS_EXPIRED);
-    }
-    //black listing the token
-    await blacklistService.save({
+    await authService.logout({
       user_id: decodedToken.id,
       token: cookieJwt,
     } as Blacklist);

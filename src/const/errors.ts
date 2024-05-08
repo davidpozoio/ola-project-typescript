@@ -20,6 +20,11 @@ const ERRORS: { [key: string]: ErrorData } = {
     statusCode: 404,
     message: "user not found",
   },
+  EMAIL_ALREADY_EXISTS: {
+    errorCode: "1004",
+    statusCode: 400,
+    message: "the provided email already exists",
+  },
   JWT_NOT_PROVIDED: {
     errorCode: "2001",
     statusCode: 400,

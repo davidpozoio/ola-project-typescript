@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --env-file .env src/server.ts",
+    "dev": "set MODE=dev&&ts-node-dev --env-file .env src/server.ts",
+    "start": "./build && set MODE=prod&&node --env-file .env dist/server.js",
     "build": "./build"
   },
   "keywords": [],

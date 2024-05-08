@@ -5,7 +5,7 @@ const startDB = async () => {
   const files = await readdir(__dirname);
 
   files.forEach(async (file) => {
-    if (file == "db.ts") return;
+    if (file === "db.ts" || file === "db.js") return;
     const sql = await readFile(`${__dirname}/${file}`, {
       encoding: "utf-8",
     });

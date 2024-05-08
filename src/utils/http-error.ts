@@ -1,7 +1,7 @@
 import { ErrorData } from "../const/errors";
 
 export default class HttpError extends Error {
-  operational = true;
+  isOperational?: boolean = true;
   message: string;
   statusCode: number;
   errorCode: string;
