@@ -25,6 +25,8 @@ authRouter
     authController.login
   );
 
+authRouter.route("/me").get(requireAuth, authController.athenticate);
+
 authRouter.route("/logout").get(requireAuth, authController.logout);
 
 export default authRouter;

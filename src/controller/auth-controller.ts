@@ -1,6 +1,6 @@
 import ERRORS from "../const/errors";
 import authService from "../service/auth-service";
-import blacklistService from "../service/blacklist-service";
+import userService from "../service/user-service";
 import { Blacklist } from "../types/blacklist";
 import { TokenPayload } from "../types/token";
 import asyncErrorHandler from "../utils/asyncErrorHandler";
@@ -43,6 +43,22 @@ class AuthController {
 
     res.json({
       message: "you are logout!",
+    });
+  });
+
+  athenticate = asyncErrorHandler(async (req, res) => {
+    const decodedToken = req.decodedToken as TokenPayload;
+    const user = await userService.findById(decodedToken.id);
+
+    if (!user.has_access) {
+      throw new HttpError(ERRORS.USER_DOES_NOT_HAVE_ACCESS);
+    }
+
+    user.password = undefined;
+
+    res.status(200).json({
+      message: "user authenticated",
+      user,
     });
   });
 }

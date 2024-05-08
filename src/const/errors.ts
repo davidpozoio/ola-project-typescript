@@ -20,6 +20,11 @@ const ERRORS: { [key: string]: ErrorData } = {
     statusCode: 404,
     message: "user not found",
   },
+  USER_DOES_NOT_HAVE_ACCESS: {
+    errorCode: "1004",
+    statusCode: 401,
+    message: "you can't still login, you need admin permission",
+  },
   EMAIL_ALREADY_EXISTS: {
     errorCode: "1004",
     statusCode: 400,

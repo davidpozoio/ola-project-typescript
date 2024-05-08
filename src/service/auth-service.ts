@@ -3,6 +3,7 @@ import { Blacklist } from "../types/blacklist";
 import { Roles, User } from "../types/user";
 import crypPassword, { comparePassword } from "../utils/crypt-password";
 import HttpError from "../utils/http-error";
+import { verifyTokenUser } from "../utils/jwt-utils";
 import blacklistService from "./blacklist-service";
 import userService from "./user-service";
 
@@ -16,6 +17,11 @@ class AuthService {
 
   async login(user: User): Promise<User> {
     const loggedUser = await userService.findByEmail(user.email);
+
+    if (!loggedUser.has_access) {
+      throw new HttpError(ERRORS.USER_DOES_NOT_HAVE_ACCESS);
+    }
+
     const isPasswordValid = await comparePassword(
       user.password as string,
       loggedUser.password as string
@@ -44,6 +50,13 @@ class AuthService {
       user_id: blacklist.user_id,
       token: blacklist.token,
     } as Blacklist);
+  }
+
+  async authenticate(token: string) {
+    const decodedToken = await verifyTokenUser(token);
+    const user = userService.findById(decodedToken.id);
+
+    return user;
   }
 }
 

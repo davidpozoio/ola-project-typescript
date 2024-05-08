@@ -21,18 +21,10 @@ export default class MysqlUserRepository extends UserRepository {
   }
 
   async save(user: User): Promise<User> {
-    const [createdUser] = await pool
-      .query<ResultSetHeader>(
-        "INSERT INTO users (email, fullname, password, area, has_access, role) VALUES (?, ?, ?, ?, ?, ?)",
-        [user.email, user.fullname, user.password, user.area, 0, user.role]
-      )
-      .catch((err) => {
-        if (err.code === "ER_DUP_ENTRY") {
-          throw new HttpError(ERRORS.EMAIL_ALREADY_EXISTS);
-        }
-
-        return err;
-      });
+    const [createdUser] = await pool.query<ResultSetHeader>(
+      "INSERT INTO users (email, fullname, password, area, has_access, role) VALUES (?, ?, ?, ?, ?, ?)",
+      [user.email, user.fullname, user.password, user.area, 0, user.role]
+    );
 
     return {
       id: createdUser.insertId,

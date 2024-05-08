@@ -7,6 +7,7 @@ export interface User extends RowDataPacket {
   password: string | undefined;
   area: UserArea;
   role: Roles;
+  has_access: boolean;
 }
 
 export enum UserArea {

@@ -14,7 +14,13 @@ class UserService extends UserRepository {
   }
 
   async save(user: User): Promise<User> {
-    return this.userRepository.save(user);
+    return this.userRepository.save(user).catch((err) => {
+      if (err.code === "ER_DUP_ENTRY") {
+        throw new HttpError(ERRORS.EMAIL_ALREADY_EXISTS);
+      }
+
+      return err;
+    });
   }
 
   async findByEmail(email: string): Promise<User> {
