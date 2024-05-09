@@ -16,6 +16,15 @@ class UserController {
       user,
     });
   });
+
+  toggleAccessUser = asyncErrorHandler(async (req, res) => {
+    const { userId, access } = req.body;
+    await userService.toggleAccessUser(access, userId);
+
+    res.status(200).json({
+      message: "updated user successfully",
+    });
+  });
 }
 
 const userController = new UserController();

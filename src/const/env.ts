@@ -9,6 +9,7 @@ const ENV = {
   EMAIL_RESEND: process.env.EMAIL_RESEND,
   PORT: process.env.PORT,
   API_PREFIX: process.env.API_PREFIX,
+  IP: process.env.IP,
 };
 
 export default ENV;

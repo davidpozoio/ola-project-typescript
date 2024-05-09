@@ -1,7 +1,5 @@
 import pool from "../../config/mysql-config";
-import ERRORS from "../../const/errors";
 import { User } from "../../types/user";
-import HttpError from "../../utils/http-error";
 import { UserRepository } from "./user-repository";
 import { ResultSetHeader } from "mysql2/promise";
 
@@ -42,5 +40,34 @@ export default class MysqlUserRepository extends UserRepository {
     );
 
     return user;
+  }
+
+  async saveAdmin(user: User): Promise<User> {
+    const [createdUser] = await pool.query<ResultSetHeader>(
+      "INSERT INTO users (email, fullname, password, area, has_access, role) VALUES (?, ?, ?, ?, ?, ?)",
+      [user.email, user.fullname, user.password, user.area, 1, user.role]
+    );
+
+    return {
+      id: createdUser.insertId,
+      fullname: user.fullname,
+      email: user.email,
+      password: user.password,
+      area: user.area,
+    } as User;
+  }
+
+  async toggleAccessUser(
+    access: boolean,
+    userId: number | string
+  ): Promise<User> {
+    const [updatedUser] = await pool.query<ResultSetHeader>(
+      "UPDATE users SET has_access = ? WHERE id = ?",
+      [Number(access), userId]
+    );
+
+    return {
+      id: updatedUser.insertId,
+    } as User;
   }
 }

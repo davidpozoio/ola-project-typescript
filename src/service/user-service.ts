@@ -10,7 +10,11 @@ class UserService extends UserRepository {
   }
 
   async findAll(): Promise<User[]> {
-    return this.userRepository.findAll();
+    const users = await this.userRepository.findAll();
+    return users.map((user) => {
+      user.password = undefined;
+      return user;
+    });
   }
 
   async save(user: User): Promise<User> {
@@ -21,6 +25,10 @@ class UserService extends UserRepository {
 
       return err;
     });
+  }
+
+  async saveAdmin(user: User): Promise<User> {
+    return this.userRepository.saveAdmin(user);
   }
 
   async findByEmail(email: string): Promise<User> {
@@ -39,6 +47,10 @@ class UserService extends UserRepository {
     }
 
     return user;
+  }
+
+  async toggleAccessUser(access: boolean, userId: number): Promise<User> {
+    return this.userRepository.toggleAccessUser(access, userId);
   }
 }
 

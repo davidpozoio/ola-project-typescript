@@ -12,7 +12,7 @@ export async function createTokenCookie(response: Response, payload: object) {
   response.cookie(NAMES.JWT_AUTH, token, {
     httpOnly: true,
     path: "/",
-    secure: true,
+    /*   secure: true, */
     expires: tokenDate,
   });
 }
