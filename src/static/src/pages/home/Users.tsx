@@ -12,7 +12,7 @@ const Users = () => {
         console.log(user);
         return (
           <div key={user.id}>
-            <UserCard user={user} />
+            <UserCard user={user} notificationMode={false} />
           </div>
         );
       })}

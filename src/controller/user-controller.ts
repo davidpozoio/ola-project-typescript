@@ -5,7 +5,13 @@ class UserController {
   findAll = asyncErrorHandler(async (req, res) => {
     const users = await userService.findAll();
 
-    res.status(200).json({ users });
+    res.status(200).json({ users: users.filter((user) => user.has_access) });
+  });
+
+  findAllNotifications = asyncErrorHandler(async (req, res) => {
+    const users = await userService.findAll();
+
+    res.status(200).json({ users: users.filter((user) => !user.has_access) });
   });
 
   save = asyncErrorHandler(async (req, res) => {

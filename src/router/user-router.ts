@@ -12,6 +12,14 @@ userRouter
   .get(requireAuth, checkRole([Roles.admin]), userController.findAll);
 
 userRouter
+  .route("/notifications")
+  .get(
+    requireAuth,
+    checkRole([Roles.admin]),
+    userController.findAllNotifications
+  );
+
+userRouter
   .route("/toggle-access")
   .post(
     [body("userId").isNumeric(), body("access").isBoolean()],

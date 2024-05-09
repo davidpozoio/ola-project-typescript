@@ -23,3 +23,18 @@ Return the index.html
 ## Api Route
 
 `GET http://localhost:8000/api/v1`
+
+## USERS
+
+**get alls**
+`GET http://localhost:8000/api/v1/users`
+
+`GET http://localhost:8000/api/v1/users/notifications`
+
+`POST http://localhost:8000/api/v1/users/toggle-access`
+
+## AUTH
+
+`GET http://localhost:8000/api/v1/login`
+
+`GET http://localhost:8000/api/v1/signup`

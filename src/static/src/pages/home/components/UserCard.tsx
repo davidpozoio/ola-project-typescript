@@ -6,9 +6,10 @@ import { toggleAccessUser } from "../../../services/user-service";
 
 interface UserCardProps {
   user: UserGetDto;
+  notificationMode: boolean;
 }
 
-const UserCard = ({ user }: UserCardProps) => {
+const UserCard = ({ user, notificationMode = false }: UserCardProps) => {
   const { value, toggle } = useToggle(user.has_access);
 
   return (
@@ -16,16 +17,18 @@ const UserCard = ({ user }: UserCardProps) => {
       <div>{user.email}</div>
       <div>{user.area}</div>
       <div>{user.role}</div>
-      <ToggleButton
-        disabled={user.has_access}
-        checked={value}
-        onChange={async () => {
-          if (!value) {
-            await toggleAccessUser(true, user.id as number);
-          }
-          toggle();
-        }}
-      />
+      {notificationMode && (
+        <ToggleButton
+          disabled={user.has_access}
+          checked={value}
+          onChange={async () => {
+            if (!value) {
+              await toggleAccessUser(true, user.id as number);
+            }
+            toggle();
+          }}
+        />
+      )}
     </Panel>
   );
 };
