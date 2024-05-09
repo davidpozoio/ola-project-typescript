@@ -26,15 +26,83 @@ Return the index.html
 
 ## USERS
 
-**get alls**
+### **Get all users**
+
 `GET http://localhost:8000/api/v1/users`
+
+```json
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@email.com",
+      "area": "secretary",
+      "role": "admin",
+      "has_access": 1
+    }
+  ]
+}
+```
+
+### **Get all notifications**
 
 `GET http://localhost:8000/api/v1/users/notifications`
 
+> result
+
+```json
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@email.com",
+      "area": "secretary",
+      "role": "admin",
+      "has_access": 0
+    }
+  ]
+}
+```
+
+### **Route to change toggle accesss**
+
 `POST http://localhost:8000/api/v1/users/toggle-access`
+
+> body
+
+```json
+{
+  "access": true,
+  "userId": 1
+}
+```
 
 ## AUTH
 
-`GET http://localhost:8000/api/v1/login`
+### **Route to login**
 
-`GET http://localhost:8000/api/v1/signup`
+`POST http://localhost:8000/api/v1/login`
+
+> body
+
+```json
+{
+  "email": "put a valid email",
+  "password": "put a password"
+}
+```
+
+### **Route to signup**
+
+`POST http://localhost:8000/api/v1/signup`
+
+> body
+
+```json
+{
+  "email": "put a valid email",
+  "fullname": "put your name",
+  "password": "put a password",
+  "area": "admin"
+}
+```
