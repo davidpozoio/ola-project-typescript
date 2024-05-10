@@ -7,6 +7,7 @@ import { verifyTokenUser } from "../utils/jwt-utils";
 
 const requireAuth = asyncErrorHandler(async (req, res, next) => {
   const cookieJwt = req.cookies?.[NAMES.JWT_AUTH];
+
   if (!cookieJwt) {
     throw new HttpError(ERRORS.JWT_NOT_PROVIDED);
   }
