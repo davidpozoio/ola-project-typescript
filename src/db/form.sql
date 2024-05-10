@@ -1,6 +1,4 @@
 CREATE TABLE form(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    label VARCHAR(200) DEFAULT "" NOT NULL,
-    user_id INT NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES users(id)
+    label VARCHAR(200) DEFAULT "" NOT NULL
 );

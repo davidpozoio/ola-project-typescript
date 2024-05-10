@@ -3,6 +3,7 @@ import pool from "../config/mysql-config";
 import userService from "../service/user-service";
 import { Roles, User, UserArea } from "../types/user";
 import crypPassword from "../utils/crypt-password";
+import createForm from "../init/create-form";
 
 const startDB = async () => {
   const files = await readdir(__dirname);
@@ -33,6 +34,10 @@ const startDB = async () => {
     .finally(() => {
       console.log("user admin created");
     });
+
+  await createForm().catch(() => {
+    console.log("the first form is already created");
+  });
 };
 
 export default startDB;

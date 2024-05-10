@@ -7,6 +7,7 @@ import globalErrorController from "./controller/global-error-controller";
 import ENV from "./const/env";
 import userRouter from "./router/user-router";
 import authRouter from "./router/auth-router";
+import formRouter from "./router/form-router";
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use("/", express.static(path.resolve(__dirname, "static", "dist")));
 
 app.use(`${ENV.API_PREFIX}/users`, userRouter);
 app.use(`${ENV.API_PREFIX}/`, authRouter);
+app.use(`${ENV.API_PREFIX}/forms`, formRouter);
 
 app.use("*", (req, res) => {
   res.status(404).json({
