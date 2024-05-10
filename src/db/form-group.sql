@@ -1,0 +1,6 @@
+CREATE TABLE form_group(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    label VARCHAR(200) DEFAULT "" NOT NULL,
+    form_id INT NOT NULL,
+    FOREIGN KEY(form_id) REFERENCES form(id)
+);
