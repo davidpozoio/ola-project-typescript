@@ -25,7 +25,7 @@ app.get("/health", (req, res) => {
   });
 });
 
-app.use("/", express.static(path.resolve(__dirname, "static")));
+app.use("/", express.static(path.resolve(__dirname, "static", "dist")));
 
 app.use(`${ENV.API_PREFIX}/users`, userRouter);
 app.use(`${ENV.API_PREFIX}/`, authRouter);
