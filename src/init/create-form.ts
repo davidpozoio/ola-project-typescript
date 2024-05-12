@@ -12,6 +12,11 @@ const createForm = async () => {
     `INSERT INTO field (label, component, form_group_id, metadata)
      VALUES ("Ciudad", "input", 1,  '{"type": "text"}')`
   );
+
+  await pool.query(
+    `INSERT INTO field (label, component, form_group_id, metadata)
+     VALUES ("Fecha", "input", 1,  '{"type": "date"}')`
+  );
 };
 
 export default createForm;
