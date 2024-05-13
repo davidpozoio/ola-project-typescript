@@ -1,47 +1,57 @@
 import { ResultSetHeader } from "mysql2";
 import pool from "../../config/mysql-config";
-import { Form } from "../../types/form";
+import { Field, Form, FormGroup } from "../../types/form";
 import { FormRepository } from "./form-repository";
-import { response } from "express";
 
 export class MysqlFormRepository extends FormRepository {
   async findAll(): Promise<Form[]> {
-    const [forms] = await pool.query<Form[]>(
-      `SELECT form.*, form_group.*, field.*
-      FROM form 
-      LEFT JOIN form_group ON form_group.id=form.id
-      LEFT JOIN field ON field.form_group_id=form_group.id`
-    );
-    /*
-      {
-        forms: [{
-          form: {
-            id: 1
-          },
-          form_group: {
-            id: 1
-          }
-        }]
-      }
-    */
-    const responseBody: Form[] = [];
+    const [forms] = await pool.query<Form[]>({
+      sql: `SELECT form.*, form_group.*, field.*
+        FROM form 
+        LEFT JOIN form_group ON form_group.form_id=form.id
+        LEFT JOIN field ON field.form_group_id=form_group.id`,
+      nestTables: true,
+    });
 
-    for (let row of forms) {
-      const { form_group, fields, form } = row;
-      const index = responseBody.findIndex((item) => item.id === form.id);
-      if (index === -1) {
-        responseBody.push({
-          ...form,
-          form_groups: [],
+    const formsColumn = new Map<string, Form>();
+    const formsGroupColumn = new Map<string, FormGroup>();
+    const fieldColumn = new Map<string, Field>();
+    console.log(forms);
+
+    forms.forEach((item) => {
+      formsColumn.set(item.form.id, item.form);
+    });
+
+    const formsArray = Array.from(formsColumn.values());
+
+    for (let form of formsArray) {
+      forms.forEach((item) => {
+        if (item.form_group.form_id === form.id) {
+          formsGroupColumn.set(item.form_group.id, item.form_group);
+        }
+      });
+      const indexForm = formsArray.findIndex((item) => item.id === form.id);
+      formsArray[indexForm].form_groups = Array.from(formsGroupColumn.values());
+      formsGroupColumn.clear();
+
+      for (let form_group of formsArray[indexForm].form_groups) {
+        forms.forEach((item) => {
+          if (item.field.form_group_id === form_group.id) {
+            fieldColumn.set(item.field.id, item.field);
+          }
         });
-      } else {
-        responseBody[index].form_groups.push({
-          ...form_group,
-        });
+        const indexFormGroup = formsArray[indexForm].form_groups.findIndex(
+          (item) => item.id === form_group.id
+        );
+
+        formsArray[indexForm].form_groups[indexFormGroup].fields = Array.from(
+          fieldColumn.values()
+        );
+        fieldColumn.clear();
       }
     }
 
-    return responseBody;
+    return formsArray;
   }
 
   async save(form: Form): Promise<Form> {

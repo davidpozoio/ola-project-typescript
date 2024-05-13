@@ -35,10 +35,9 @@ export default class MysqlUserRepository extends UserRepository {
 
   async findByEmail(email: string): Promise<User | undefined> {
     const [[user]] = await pool.query<User[]>(
-      "SELECT * FROM users WHERE email = ?",
+      "SELECT id, email, password, fullname, area, has_access, role FROM users WHERE email = ?",
       [email]
     );
-
     return user;
   }
 
