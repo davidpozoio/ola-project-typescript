@@ -106,3 +106,14 @@ Return the index.html
   "area": "admin"
 }
 ```
+
+### Add a new result in the form
+
+`POST http://localhost:8000/api/v1/result`
+
+```json
+{
+  "user_id": 1,
+  "field_id": 1
+}
+```

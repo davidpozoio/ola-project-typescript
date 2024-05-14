@@ -8,6 +8,15 @@ class ResultController {
       results,
     });
   });
+
+  addResponse = asyncErrorHandler(async (req, res) => {
+    const result = await resultService.addResponse(req.body);
+
+    res.status(200).json({
+      message: "response added!",
+      result,
+    });
+  });
 }
 
 const resultController = new ResultController();
