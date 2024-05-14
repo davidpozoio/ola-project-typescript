@@ -17,6 +17,7 @@ export async function createTokenCookie(response: Response, payload: object) {
   });
 }
 
+
 export function removeTokenCookie(response: Response) {
   response.cookie(NAMES.JWT_AUTH, "", {
     httpOnly: true,

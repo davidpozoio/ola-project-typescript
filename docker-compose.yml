@@ -1,20 +1,21 @@
-version: "1.0.0"
+version: "1.0.1"
 networks:
   ola-network:
 services:
+  mysql-database:
+    image: mysql
+    networks:
+      - ola-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
   ola-project:
+    working_dir: /home/app
     build: .
-    container_name: ola-backend
     ports:
       - 8000:8000
     networks:
       - ola-network
     volumes:
-      - .:/home/app
-  mysql-database:
-    image: mysql
-    container_name: mysql-database
-    networks:
-      - ola-network
-    environment:
-      - MYSQL_ROOT_PASSWORD=1234
+      - ./src:/home/app/src
+    depends_on:
+      - mysql-database
