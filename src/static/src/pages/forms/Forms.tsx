@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import { getAllForms } from "../../services/form-service";
+import { addNewResponse } from "../../services/result-service";
 
 const Forms = () => {
   const { data: formsData } = useQuery({ queryFn: getAllForms });
@@ -19,6 +20,19 @@ const Forms = () => {
                       <div key={field.id}>
                         <label htmlFor="">{field.label}</label>
                         <input type="text" />
+                        <button
+                          onClick={() => {
+                            addNewResponse({
+                              field_id: field.id,
+                              user_id: 1,
+                              response: {
+                                result: "hola",
+                              },
+                            });
+                          }}
+                        >
+                          submit
+                        </button>
                       </div>
                     );
                   })}
