@@ -5,18 +5,17 @@ import ResultRespository from "./result-repository";
 
 export default class MysqlResultRepository extends ResultRespository {
   async findAllUserResults(result: Result): Promise<Result[]> {
-    const [results] = await pool.query<Result[]>(
-      "SELECT * FROM result WHERE user_id = ?",
-      [result.user_id]
-    );
+    const [results] = await pool.query<Result[]>("SELECT * FROM result ", [
+      result.user_id,
+    ]);
 
     return results;
   }
 
   async save(result: Result): Promise<Result> {
     const [createdResult] = await pool.query<ResultSetHeader>(
-      "INSERT INTO result (user_id, label_id) VALUES (?, ?)",
-      [result.user_id, result.field_id]
+      "INSERT INTO result (user_id, field_id, response) VALUES (?, ?, ?)",
+      [result.user_id, result.field_id, JSON.stringify(result.response)]
     );
 
     return {
