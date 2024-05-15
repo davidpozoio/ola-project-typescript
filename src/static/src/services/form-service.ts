@@ -1,9 +1,9 @@
 import { ENV } from "../consts/const";
 import axios from "../interceptors/axios-interceptor";
-import { FormPostDto } from "../models/form";
+import { FormGetDto, FormPostDto } from "../models/form";
 
 export function getAllForms() {
-  return axios.get(`${ENV.BACKEND_ROUTE}/forms`);
+  return axios.get<{ forms: FormGetDto[] }>(`${ENV.BACKEND_ROUTE}/forms`);
 }
 
 export function saveForm(form: FormPostDto) {

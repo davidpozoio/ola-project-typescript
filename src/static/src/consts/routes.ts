@@ -10,6 +10,9 @@ const ROUTES = {
       return `${this.ME}/users`;
     },
   },
+  FORMS: {
+    ME: "/forms",
+  },
 };
 
 export default ROUTES;
