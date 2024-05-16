@@ -1,4 +1,4 @@
-import { Field } from "../../types/form";
+import { Field } from "../../types/form-scheme";
 import Repository from "../repository";
 
 export default class FieldRepository extends Repository<Field> {

@@ -6,5 +6,5 @@ CREATE TABLE users(
     area ENUM("admin", "secretary"),
     has_access BOOLEAN NOT NULL DEFAULT 0,
     verified BOOLEAN NOT NULL DEFAULT 0,
-    role ENUM("admin", "user") DEFAULT "user"
+    role ENUM("admin", "user", "sales") DEFAULT "user"
 );

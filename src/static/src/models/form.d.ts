@@ -1,5 +1,5 @@
 export interface FormPostDto {
-  label: string;
+  form_scheme_id: number;
 }
 
 export interface FormGetDto {

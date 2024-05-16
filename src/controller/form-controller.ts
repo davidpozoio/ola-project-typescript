@@ -11,7 +11,10 @@ class FormController {
   });
 
   save = asyncErrorHandler(async (req, res) => {
-    const form = await formService.save(req.body);
+    const form = await formService.save({
+      ...req.body,
+      user_id: req.decodedToken?.id,
+    });
 
     res.status(200).json({
       message: "form created successfully",

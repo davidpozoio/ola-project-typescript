@@ -10,7 +10,7 @@ const Notifications = () => {
   });
 
   const createForm = async () => {
-    saveForm({ label: "formulario uno" });
+    saveForm({ form_scheme_id: 1 });
   };
 
   return (

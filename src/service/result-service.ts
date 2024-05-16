@@ -15,7 +15,7 @@ class ResultService extends ResultRespository {
   }
 
   async addResponse(result: Result): Promise<Result> {
-    const selectedResult = await this.resultRepository.findByUserIdAndFieldId(
+    const selectedResult = await this.resultRepository.findByFormIdAndFieldId(
       result
     );
     if (!selectedResult) {

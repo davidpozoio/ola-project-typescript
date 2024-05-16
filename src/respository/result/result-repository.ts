@@ -6,7 +6,7 @@ export default class ResultRespository extends Repository<Result> {
     throw new Error("the method is not implemented");
   }
 
-  async findByUserIdAndFieldId(result: Result): Promise<Result> {
+  async findByFormIdAndFieldId(result: Result): Promise<Result> {
     throw new Error("the method is not implemented");
   }
 }

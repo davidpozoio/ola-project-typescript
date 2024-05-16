@@ -12,8 +12,12 @@ formRouter
   .route("/")
   .post(
     requireAuth,
-    checkRole([Roles.admin]),
-    [body("label").isString().withMessage("label is required")],
+    checkRole([Roles.admin, Roles.sales]),
+    [
+      body("form_scheme_id")
+        .isNumeric()
+        .withMessage("form_scheme_id is required"),
+    ],
     formController.save
   );
 

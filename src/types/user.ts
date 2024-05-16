@@ -23,4 +23,5 @@ export enum UserArea {
 export enum Roles {
   admin = "admin",
   user = "user",
+  sales = "sales",
 }
