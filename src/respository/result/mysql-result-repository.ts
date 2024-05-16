@@ -5,9 +5,10 @@ import ResultRespository from "./result-repository";
 
 export default class MysqlResultRepository extends ResultRespository {
   async findAllUserResults(result: Result): Promise<Result[]> {
-    const [results] = await pool.query<Result[]>("SELECT * FROM result ", [
-      result.user_id,
-    ]);
+    const [results] = await pool.query<Result[]>(
+      "SELECT * FROM result WHERE user_id = ?",
+      [result.user_id]
+    );
 
     return results;
   }
@@ -37,7 +38,7 @@ export default class MysqlResultRepository extends ResultRespository {
   async update(result: Result): Promise<Result> {
     const [updatedResult] = await pool.query<ResultSetHeader>(
       "UPDATE result SET response = ? WHERE user_id = ? AND field_id = ?",
-      [result.response, result.user_id, result.field_id]
+      [JSON.stringify(result.response), result.user_id, result.field_id]
     );
 
     return {
