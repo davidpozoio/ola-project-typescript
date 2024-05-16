@@ -7,7 +7,7 @@ const Forms = () => {
 
   return (
     <>
-      {formsData?.data.forms.map((form) => {
+      {formsData?.data.form_schemes.map((form) => {
         return (
           <div key={form.id}>
             <h2>{form.label}</h2>
@@ -24,9 +24,9 @@ const Forms = () => {
                           onClick={() => {
                             addNewResponse({
                               field_id: field.id,
-                              user_id: 1,
+                              form_id: 1,
                               response: {
-                                result: "hola 2",
+                                result: "hola 3",
                               },
                             });
                           }}

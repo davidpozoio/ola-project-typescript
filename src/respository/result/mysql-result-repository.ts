@@ -5,10 +5,9 @@ import ResultRespository from "./result-repository";
 
 export default class MysqlResultRepository extends ResultRespository {
   async findAllUserResults(result: Result): Promise<Result[]> {
-    const [results] = await pool.query<Result[]>(
-      "SELECT * FROM result WHERE form_id = ?",
-      [result.form_id]
-    );
+    const [results] = await pool.query<Result[]>("SELECT * FROM result ", [
+      result.form_id,
+    ]);
 
     return results;
   }
