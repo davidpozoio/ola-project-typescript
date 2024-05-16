@@ -6,8 +6,8 @@ import { FormRepository } from "./form-repository";
 export class MysqlFormRepository extends FormRepository {
   async findAll(): Promise<Form[]> {
     const [forms] = await pool.query<Form[]>({
-      sql: `SELECT form.*, form_group.*, field.*
-        FROM form 
+      sql: `SELECT form_scheme.*, form_group.*, field.*
+        FROM form_scheme 
         LEFT JOIN form_group ON form_group.form_id=form.id
         LEFT JOIN field ON field.form_group_id=form_group.id`,
       nestTables: true,
@@ -56,7 +56,7 @@ export class MysqlFormRepository extends FormRepository {
 
   async save(form: Form): Promise<Form> {
     const [createdForm] = await pool.query<ResultSetHeader>(
-      "INSERT INTO form (label) VALUES (?)",
+      "INSERT INTO form_scheme (label) VALUES (?)",
       [form.label]
     );
 

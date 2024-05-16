@@ -1,4 +1,0 @@
-CREATE TABLE client(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    fullname VARCHAR(200) NOT NULL
-);
