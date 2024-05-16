@@ -7,7 +7,7 @@ const createForm = async () => {
   );
   //create first form group
   await pool.query(
-    `INSERT INTO form_group (label, form_id) VALUES ("Información referencial", 1)`
+    `INSERT INTO form_group (label, form_scheme_id) VALUES ("Información referencial", 1)`
   );
 
   ///create first field

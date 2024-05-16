@@ -1,7 +1,8 @@
 import { ResultSetHeader } from "mysql2";
 import pool from "../../config/mysql-config";
-import { Field, Form, FormGroup } from "../../types/form";
+import { Form } from "../../types/form";
 import { FormRepository } from "./form-repository";
+import { Field, FormGroup } from "../../types/form-scheme";
 
 export class MysqlFormRepository extends FormRepository {
   async findAll(): Promise<Form[]> {

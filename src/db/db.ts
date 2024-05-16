@@ -35,7 +35,8 @@ const startDB = async () => {
       console.log("user admin created");
     });
 
-  await createForm().catch(() => {
+  await createForm().catch((err) => {
+    console.log(err);
     console.log("the first form is already created");
   });
 };

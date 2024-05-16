@@ -7,7 +7,6 @@ import globalErrorController from "./controller/global-error-controller";
 import ENV from "./const/env";
 import userRouter from "./router/user-router";
 import authRouter from "./router/auth-router";
-import formRouter from "./router/form-router";
 import resultRouter from "./router/result-router";
 import formSchemeRouter from "./router/form-scheme-router";
 

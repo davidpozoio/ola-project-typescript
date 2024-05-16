@@ -6,7 +6,7 @@ import ResultRespository from "./result-repository";
 export default class MysqlResultRepository extends ResultRespository {
   async findAllUserResults(result: Result): Promise<Result[]> {
     const [results] = await pool.query<Result[]>(
-      "SELECT * FROM result WHERE user_id = ?",
+      "SELECT * FROM result WHERE form_id = ?",
       [result.user_id]
     );
 
@@ -28,7 +28,7 @@ export default class MysqlResultRepository extends ResultRespository {
 
   async findByUserIdAndFieldId(result: Result): Promise<Result> {
     const [[selectedResult]] = await pool.query<Result[]>(
-      "SELECT * FROM result WHERE user_id = ? AND field_id = ?",
+      "SELECT * FROM result WHERE form_id = ? AND field_id = ?",
       [result.user_id, result.field_id]
     );
 

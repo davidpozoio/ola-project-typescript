@@ -1,7 +1,8 @@
 import { ResultSetHeader } from "mysql2";
 import pool from "../../config/mysql-config";
-import { Field } from "../../types/form";
+
 import FieldRepository from "./field-repository";
+import { Field } from "../../types/form-scheme";
 
 export default class MysqlFieldRepository extends FieldRepository {
   async updateResult(field: Field): Promise<Field> {
