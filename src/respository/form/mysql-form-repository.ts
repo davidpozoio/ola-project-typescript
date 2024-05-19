@@ -56,4 +56,16 @@ export class MysqlFormRepository extends FormRepository {
 
     return form;
   }
+
+  async removeHash(id: string | number): Promise<Form | undefined> {
+    const [form] = await pool.query<ResultSetHeader>(
+      "UPDATE form SET hash = null WHERE id = ?",
+      [id]
+    );
+
+    return {
+      id: id,
+      hash: null,
+    } as Form;
+  }
 }

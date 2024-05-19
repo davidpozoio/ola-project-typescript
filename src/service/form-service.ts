@@ -19,7 +19,7 @@ class FormService extends FormRepository {
     return this.formRepository.save(form);
   }
 
-  async findById(id: string | number | undefined): Promise<Form | undefined> {
+  async findById(id: string | number | undefined): Promise<Form> {
     const form = await this.formRepository.findById(id);
     if (!form) {
       throw new HttpError(ERRORS.FORM_NOT_FOUND);
@@ -36,7 +36,7 @@ class FormService extends FormRepository {
     return this.formRepository.addHash(form);
   }
 
-  async findByHash(hash: string): Promise<Form | undefined> {
+  async findByHash(hash: string): Promise<Form> {
     const form = await this.formRepository.findByHash(hash);
 
     if (!form) {
@@ -44,6 +44,10 @@ class FormService extends FormRepository {
     }
 
     return form;
+  }
+
+  async removeHash(id: string | number): Promise<Form | undefined> {
+    return this.formRepository.removeHash(id);
   }
 }
 

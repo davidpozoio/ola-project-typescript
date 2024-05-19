@@ -36,6 +36,16 @@ class FormController {
       form,
     });
   });
+
+  invalidateLink = asyncErrorHandler(async (req, res) => {
+    const { id } = req.body;
+
+    await formService.removeHash(id);
+
+    res.status(200).json({
+      message: "the link is invalid now",
+    });
+  });
 }
 
 const formController = new FormController();

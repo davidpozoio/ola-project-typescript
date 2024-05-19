@@ -34,6 +34,11 @@ formRouter
   .route("/generate-form/:hash")
   .get(requireLinkHash, formController.generateForm);
 
-formRouter.route("/invalidate-link");
+formRouter
+  .route("/invalidate-link")
+  .post(
+    [body("id").isNumeric().withMessage("id is required")],
+    formController.invalidateLink
+  );
 
 export default formRouter;

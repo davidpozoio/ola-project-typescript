@@ -19,3 +19,7 @@ export function getMyForms() {
 export function generateLink(id: number) {
   return axios.post(`${ENV.BACKEND_ROUTE}/forms/generate-link`, { id });
 }
+
+export function invalidateLink(id: number) {
+  return axios.post(`${ENV.BACKEND_ROUTE}/forms/invalidate-link`, { id });
+}

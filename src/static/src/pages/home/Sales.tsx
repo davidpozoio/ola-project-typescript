@@ -2,6 +2,7 @@ import { Button } from "primereact/button";
 import {
   generateLink,
   getAllForms,
+  invalidateLink,
   saveForm,
 } from "../../services/form-service";
 import { useQuery } from "react-query";
@@ -37,6 +38,13 @@ const Sales = () => {
         }}
       >
         generar link
+      </Button>
+      <Button
+        onClick={() => {
+          invalidateLink(1);
+        }}
+      >
+        invalidar link
       </Button>
     </div>
   );

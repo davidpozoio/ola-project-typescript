@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "set MODE=dev&&ts-node-dev --env-file .env src/server.ts",
     "start": "./build && set MODE=prod&&node --env-file .env dist/server.js",
-    "build": "./build"
+    "build": "./build",
+    "start:docker": "./start-docker"
   },
   "keywords": [],
   "author": "",

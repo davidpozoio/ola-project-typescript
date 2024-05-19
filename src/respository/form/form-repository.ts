@@ -9,4 +9,8 @@ export class FormRepository extends Repository<Form> {
   async findByHash(hash: string): Promise<Form | undefined> {
     throw new Error("the method is not implemented");
   }
+
+  async removeHash(id: number | string): Promise<Form | undefined> {
+    throw new Error("the method is not implemented");
+  }
 }
