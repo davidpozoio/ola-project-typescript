@@ -7,6 +7,7 @@ import Home from "./pages/home/Home";
 import Notifications from "./pages/home/Notifications";
 import Users from "./pages/home/Users";
 import Forms from "./pages/forms/Forms";
+import Sales from "./pages/home/Sales";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             element={<Notifications />}
           ></Route>
           <Route path={ROUTES.HOME.USERS} element={<Users />}></Route>
+          <Route path={ROUTES.HOME.SALES} element={<Sales />} />
         </Route>
         <Route path={ROUTES.FORMS.ME} element={<Forms />} />
       </Routes>

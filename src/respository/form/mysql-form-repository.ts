@@ -26,4 +26,34 @@ export class MysqlFormRepository extends FormRepository {
       user_id: form.user_id,
     } as Form;
   }
+
+  async addHash(form: Form): Promise<Form> {
+    const [updatedForm] = await pool.query<ResultSetHeader>(
+      "UPDATE form SET hash = ? WHERE id = ?",
+      [form.hash, form.id]
+    );
+
+    return {
+      id: form.id,
+      hash: form.hash,
+    } as Form;
+  }
+
+  async findById(id: string | number | undefined): Promise<Form | undefined> {
+    const [[form]] = await pool.query<Form[]>(
+      "SELECT * FROM form WHERE id = ?",
+      [id]
+    );
+
+    return form;
+  }
+
+  async findByHash(hash: string): Promise<Form | undefined> {
+    const [[form]] = await pool.query<Form[]>(
+      "SELECT * FROM form WHERE hash = ?",
+      [hash]
+    );
+
+    return form;
+  }
 }

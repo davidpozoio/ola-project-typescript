@@ -22,6 +22,13 @@ const Home = () => {
         navigate(ROUTES.HOME.USERS);
       },
     },
+    {
+      label: "Ventas",
+      icon: "pi pi-search",
+      command: () => {
+        navigate(ROUTES.HOME.SALES);
+      },
+    },
   ];
 
   return (

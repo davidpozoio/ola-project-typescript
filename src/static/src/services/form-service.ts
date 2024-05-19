@@ -9,5 +9,13 @@ export function getAllForms() {
 }
 
 export function saveForm(form: FormPostDto) {
-  return axios.post(`${ENV.BACKEND_ROUTE}/form`, form);
+  return axios.post(`${ENV.BACKEND_ROUTE}/forms`, form);
+}
+
+export function getMyForms() {
+  return axios.get(`${ENV.BACKEND_ROUTE}/forms`);
+}
+
+export function generateLink(id: number) {
+  return axios.post(`${ENV.BACKEND_ROUTE}/forms/generate-link`, { id });
 }

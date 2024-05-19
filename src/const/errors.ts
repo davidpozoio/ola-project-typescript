@@ -30,6 +30,11 @@ const ERRORS: { [key: string]: ErrorData } = {
     statusCode: 400,
     message: "the provided email already exists",
   },
+  USER_NOT_VERIFIED: {
+    errorCode: "1005",
+    statusCode: 404,
+    message: "the user is not verified, please send the form to verify",
+  },
   JWT_NOT_PROVIDED: {
     errorCode: "2001",
     statusCode: 400,
@@ -44,6 +49,21 @@ const ERRORS: { [key: string]: ErrorData } = {
     errorCode: "2003",
     statusCode: 400,
     message: "the provided jwt is expired, login again",
+  },
+  FORM_NOT_FOUND: {
+    errorCode: "2004",
+    statusCode: 404,
+    message: "the form was not found",
+  },
+  HASH_IS_NOT_VALID: {
+    errorCode: "3001",
+    statusCode: 400,
+    message: "the provided hash is not valid",
+  },
+  HASH_NOT_PROVIDED: {
+    errorCode: "3002",
+    statusCode: 400,
+    message: "you need a hash",
   },
 };
 

@@ -7,6 +7,7 @@ declare module "express" {
   interface Request {
     cookieJwt?: string;
     decodedToken?: TokenPayload;
+    formId?: string | number;
   }
 }
 

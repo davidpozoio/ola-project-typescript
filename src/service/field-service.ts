@@ -1,6 +1,6 @@
 import FieldRepository from "../respository/field/field-repository";
 import MysqlFieldRepository from "../respository/field/mysq-field-repository";
-import { Field } from "../types/form";
+import { Field } from "../types/form-scheme";
 
 class FieldService extends FieldRepository {
   constructor(private readonly fieldRespository: FieldRepository) {

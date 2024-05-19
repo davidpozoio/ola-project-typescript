@@ -4,10 +4,12 @@ import formController from "../controller/form-controller";
 import { body } from "express-validator";
 import checkRole from "../middleware/check-role";
 import { Roles } from "../types/user";
+import requireLinkHash from "../middleware/require-link-hash";
 
 const formRouter = Router();
 
 formRouter.route("/").get(requireAuth, formController.findAll);
+
 formRouter
   .route("/")
   .post(
@@ -20,5 +22,18 @@ formRouter
     ],
     formController.save
   );
+
+formRouter
+  .route("/generate-link")
+  .post(
+    [body("id").isNumeric().withMessage("id is required")],
+    formController.generateLink
+  );
+
+formRouter
+  .route("/generate-form/:hash")
+  .get(requireLinkHash, formController.generateForm);
+
+formRouter.route("/invalidate-link");
 
 export default formRouter;

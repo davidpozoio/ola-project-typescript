@@ -21,6 +21,21 @@ class FormController {
       form,
     });
   });
+
+  generateLink = asyncErrorHandler(async (req, res) => {
+    const form = await formService.addHash(req.body);
+    res.status(200).json({
+      form,
+    });
+  });
+
+  generateForm = asyncErrorHandler(async (req, res) => {
+    const form = await formService.findById(req.formId);
+
+    res.status(200).json({
+      form,
+    });
+  });
 }
 
 const formController = new FormController();

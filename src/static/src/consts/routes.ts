@@ -9,6 +9,9 @@ const ROUTES = {
     get USERS() {
       return `${this.ME}/users`;
     },
+    get SALES() {
+      return `${this.ME}/sales`;
+    },
   },
   FORMS: {
     ME: "/forms",

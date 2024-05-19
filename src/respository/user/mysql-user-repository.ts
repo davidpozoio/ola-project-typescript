@@ -43,8 +43,8 @@ export default class MysqlUserRepository extends UserRepository {
 
   async saveAdmin(user: User): Promise<User> {
     const [createdUser] = await pool.query<ResultSetHeader>(
-      "INSERT INTO users (email, fullname, password, area, has_access, role) VALUES (?, ?, ?, ?, ?, ?)",
-      [user.email, user.fullname, user.password, user.area, 1, user.role]
+      "INSERT INTO users (email, fullname, password, area, has_access, role, verified) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [user.email, user.fullname, user.password, user.area, 1, user.role, 1]
     );
 
     return {

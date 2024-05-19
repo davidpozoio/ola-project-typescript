@@ -1,10 +1,15 @@
 import { Router } from "express";
 import resultController from "../controller/result-controller";
 import { body } from "express-validator";
+import requireVerification from "../middleware/require-verification";
+import requireAuth from "../middleware/require-auth";
 
 const resultRouter = Router();
 
-resultRouter.route("/").get(resultController.findAllResults);
+resultRouter
+  .route("/")
+  .get(requireAuth, requireVerification, resultController.findAllResults);
+
 resultRouter
   .route("/")
   .post(
