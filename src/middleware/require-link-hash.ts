@@ -1,6 +1,5 @@
 import ERRORS from "../const/errors";
 import formService from "../service/form-service";
-import { Form } from "../types/form";
 import asyncErrorHandler from "../utils/asyncErrorHandler";
 import { verifyHmacHash } from "../utils/generate-hmac-hash";
 import HttpError from "../utils/http-error";
@@ -14,6 +13,11 @@ const requireLinkHash = asyncErrorHandler(async (req, res, next) => {
 
   if (!isHashValid) {
     throw new HttpError(ERRORS.HASH_IS_NOT_VALID);
+  }
+
+  if (form.expire_hash_time && form.expire_hash_time < new Date()) {
+    await formService.removeHash(form.id as number);
+    throw new HttpError(ERRORS.HASH_IS_EXPIRED);
   }
 
   req.formId = form?.id;

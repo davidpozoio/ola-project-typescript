@@ -1,12 +1,10 @@
 import { readdir, readFile } from "fs/promises";
 import pool from "../config/mysql-config";
-import userService from "../service/user-service";
-import { Roles, User, UserArea } from "../types/user";
-import crypPassword from "../utils/crypt-password";
-import createForm from "../init/create-form";
 
 const startDB = async () => {
   const files = await readdir(__dirname);
+
+  await pool.query("SET SESSION time_zone = '+00:00'");
 
   files.forEach(async (file) => {
     if (file === "db.ts" || file === "db.js") return;
@@ -16,28 +14,6 @@ const startDB = async () => {
     await pool.query(sql).catch((err) => {
       console.log(err.message);
     });
-  });
-
-  const password = await crypPassword("1234");
-
-  await userService
-    .saveAdmin({
-      email: "admin@email.com",
-      fullname: "admin",
-      area: UserArea.admin,
-      password: password,
-      role: Roles.admin,
-    } as User)
-    .catch(() => {
-      console.log("duplicated admin user");
-    })
-    .finally(() => {
-      console.log("user admin created");
-    });
-
-  await createForm().catch((err) => {
-    console.log(err);
-    console.log("the first form is already created");
   });
 };
 

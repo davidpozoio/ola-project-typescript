@@ -65,6 +65,17 @@ const ERRORS: { [key: string]: ErrorData } = {
     statusCode: 400,
     message: "you need a hash",
   },
+  HASH_IS_EXPIRED: {
+    errorCode: "3003",
+    statusCode: 400,
+    message: "the provided hash is expired, please use other",
+  },
+
+  FORM_SCHEME_NOT_FOUND: {
+    errorCode: "4000",
+    statusCode: 404,
+    message: "the form scheme was not found",
+  },
 };
 
 export default ERRORS;

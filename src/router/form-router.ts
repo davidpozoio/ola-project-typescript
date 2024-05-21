@@ -24,6 +24,19 @@ formRouter
   );
 
 formRouter
+  .route("/expire-time")
+  .post(
+    requireAuth,
+    [
+      body("expire_hash_time")
+        .isNumeric()
+        .withMessage("expire_hash_time is required"),
+      body("id").isNumeric().withMessage("id is required"),
+    ],
+    formController.setExpireTime
+  );
+
+formRouter
   .route("/generate-link")
   .post(
     [body("id").isNumeric().withMessage("id is required")],

@@ -49,6 +49,11 @@ class FormService extends FormRepository {
   async removeHash(id: string | number): Promise<Form | undefined> {
     return this.formRepository.removeHash(id);
   }
+
+  async setExpireTime(form: Form): Promise<Form | undefined> {
+    form.expire_hash_time = new Date(new Date().getTime() + 1 * 60000);
+    return this.formRepository.setExpireTime(form);
+  }
 }
 
 const formService = new FormService(new MysqlFormRepository());

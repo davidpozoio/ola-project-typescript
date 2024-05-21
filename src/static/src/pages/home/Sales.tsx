@@ -4,6 +4,7 @@ import {
   getAllForms,
   invalidateLink,
   saveForm,
+  setExpireTime,
 } from "../../services/form-service";
 import { useQuery } from "react-query";
 import { Dropdown } from "primereact/dropdown";
@@ -45,6 +46,13 @@ const Sales = () => {
         }}
       >
         invalidar link
+      </Button>
+      <Button
+        onClick={() => {
+          setExpireTime(100 * 30, 1);
+        }}
+      >
+        set expire time
       </Button>
     </div>
   );

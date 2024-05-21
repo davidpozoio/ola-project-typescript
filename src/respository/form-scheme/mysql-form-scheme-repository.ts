@@ -57,4 +57,15 @@ export default class MysqlFormSchemeRepository extends FormSchemeRepository {
 
     return Array.from(formSchemeMap.values());
   }
+
+  async findById(
+    id: string | number | undefined
+  ): Promise<FormScheme | undefined> {
+    const [[formScheme]] = await pool.query<FormScheme[]>(
+      "SELECT * FROM form_scheme WHERE id = ?",
+      [id]
+    );
+
+    return formScheme;
+  }
 }

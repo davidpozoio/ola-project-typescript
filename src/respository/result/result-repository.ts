@@ -9,4 +9,8 @@ export default class ResultRespository extends Repository<Result> {
   async findByFormIdAndFieldId(result: Result): Promise<Result> {
     throw new Error("the method is not implemented");
   }
+
+  async addMultipleResponses(result: Result[][]) {
+    throw new Error("the method is not implemented");
+  }
 }

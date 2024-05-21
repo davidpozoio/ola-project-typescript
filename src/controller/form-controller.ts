@@ -1,4 +1,6 @@
+import formSchemeService from "../service/form-scheme-service";
 import formService from "../service/form-service";
+import { Form } from "../types/form";
 import asyncErrorHandler from "../utils/asyncErrorHandler";
 
 class FormController {
@@ -31,9 +33,10 @@ class FormController {
 
   generateForm = asyncErrorHandler(async (req, res) => {
     const form = await formService.findById(req.formId);
-
+    const formScheme = await formSchemeService.findById(form.form_scheme_id);
     res.status(200).json({
       form,
+      form_scheme: formScheme,
     });
   });
 
@@ -44,6 +47,19 @@ class FormController {
 
     res.status(200).json({
       message: "the link is invalid now",
+    });
+  });
+
+  setExpireTime = asyncErrorHandler(async (req, res) => {
+    const decodedToken = req.decodedToken;
+    const form = await formService.setExpireTime({
+      id: req.body.id,
+      expire_hash_time: req.body.expire_hash_time,
+      user_id: decodedToken?.id,
+    } as Form);
+
+    res.status(200).json({
+      form,
     });
   });
 }

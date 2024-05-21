@@ -68,4 +68,16 @@ export class MysqlFormRepository extends FormRepository {
       hash: null,
     } as Form;
   }
+
+  async setExpireTime(form: Form): Promise<Form | undefined> {
+    await pool.query(
+      "UPDATE form SET expire_hash_time = ? WHERE id = ? AND user_id = ?",
+      [form.expire_hash_time, form.id, form.user_id]
+    );
+
+    return {
+      id: form.id,
+      expire_hash_time: form.expire_hash_time,
+    } as Form;
+  }
 }

@@ -23,3 +23,10 @@ export function generateLink(id: number) {
 export function invalidateLink(id: number) {
   return axios.post(`${ENV.BACKEND_ROUTE}/forms/invalidate-link`, { id });
 }
+
+export function setExpireTime(time: number, formId: number) {
+  return axios.post(`${ENV.BACKEND_ROUTE}/forms/expire-time`, {
+    expire_hash_time: time,
+    id: formId,
+  });
+}
