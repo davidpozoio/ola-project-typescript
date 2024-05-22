@@ -117,3 +117,43 @@ Return the index.html
   "field_id": 1
 }
 ```
+
+## FORM_SCHEME
+
+### **Get all form_schemes**
+
+`POST http://localhost:8000/api/v1/form-schemes`
+
+```json
+{
+  "form_schemes": [
+    {
+      "id": 1,
+      "label": "Formulario Ola",
+      "form_groups": [
+        {
+          "id": 1,
+          "label": "Información referencial",
+          "form_scheme_id": 1,
+          "fields": [
+            {
+              "id": 1,
+              "label": "Ciudad",
+              "component": "input",
+              "metadata": { "type": "text" },
+              "form_group_id": 1
+            },
+            {
+              "id": 2,
+              "label": "Fecha",
+              "component": "input",
+              "metadata": { "type": "date" },
+              "form_group_id": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```

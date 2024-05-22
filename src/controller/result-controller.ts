@@ -17,6 +17,8 @@ class ResultController {
       result,
     });
   });
+
+  addAllResponses = asyncErrorHandler
 }
 
 const resultController = new ResultController();

@@ -9,6 +9,15 @@ class FormSchemeController {
       form_schemes: formSchemes,
     });
   });
+
+  findById = asyncErrorHandler(async (req, res) => {
+    const { id } = req.params;
+    const formScheme = await formSchemeService.findById(id);
+
+    res.status(200).json({
+      form_scheme: formScheme,
+    });
+  });
 }
 
 const formSchemeController = new FormSchemeController();

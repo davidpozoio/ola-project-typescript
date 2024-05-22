@@ -2,6 +2,7 @@ import userService from "../service/user-service";
 import { Roles, User, UserArea } from "../types/user";
 import crypPassword from "../utils/crypt-password";
 import createForm from "./create-form";
+import createUserForm from "./create-user-form";
 
 const startDefaultValues = async () => {
   const password = await crypPassword("1234");
@@ -24,6 +25,11 @@ const startDefaultValues = async () => {
   await createForm().catch((err) => {
     console.log(err);
     console.log("the first form is already created");
+  });
+
+  await createUserForm().catch((err) => {
+    console.log(err);
+    console.log("user form scheme is already created");
   });
 };
 
