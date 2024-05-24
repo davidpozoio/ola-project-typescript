@@ -21,6 +21,21 @@ class FormSchemeService extends FormSchemeRepository {
 
     return formScheme;
   }
+
+  async findByIdWithResults(
+    id: string | number,
+    formId: string | number
+  ): Promise<FormScheme> {
+    const formScheme = await this.formSchemeRespository.findByIdWithResults(
+      id,
+      formId
+    );
+    if (!formScheme) {
+      throw new HttpError(ERRORS.FORM_SCHEME_NOT_FOUND);
+    }
+
+    return formScheme;
+  }
 }
 
 const formSchemeService = new FormSchemeService(

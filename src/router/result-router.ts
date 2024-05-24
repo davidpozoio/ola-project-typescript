@@ -12,7 +12,7 @@ resultRouter
 
 resultRouter
   .route("/")
-  .post(
+  .put(
     [
       body("form_id").isNumeric().withMessage("form_id is required"),
       body("field_id").isNumeric().withMessage("field_id is required"),

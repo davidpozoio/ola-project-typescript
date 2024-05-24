@@ -16,4 +16,13 @@ export default class MysqlFieldRepository extends FieldRepository {
       metadata: field.metadata,
     } as Field;
   }
+
+  async findById(id: string | number | undefined): Promise<Field | undefined> {
+    const [[field]] = await pool.query<Field[]>(
+      "SELECT * FROM field WHERE id = ?",
+      [id]
+    );
+
+    return field;
+  }
 }

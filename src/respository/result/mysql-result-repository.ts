@@ -48,6 +48,6 @@ export default class MysqlResultRepository extends ResultRespository {
   }
 
   async addMultipleResponses(result: Result[][]): Promise<void> {
-    const [results] = await pool.query("INSERT INTO ")
+    const [results] = await pool.query("INSERT INTO ");
   }
 }

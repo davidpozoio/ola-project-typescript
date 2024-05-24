@@ -21,6 +21,9 @@ const getNestedTables = async <T extends TableForm>(
   relations: Relations[] = [],
   options: RecoverFrom
 ): Promise<any[]> => {
+  if (tables.length === 0) {
+    return [];
+  }
   const groups: { [key: string]: any } = {};
   const arrays: { [key: string]: TableContent[] } = {};
 

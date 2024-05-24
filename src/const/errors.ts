@@ -76,6 +76,22 @@ const ERRORS: { [key: string]: ErrorData } = {
     statusCode: 404,
     message: "the form scheme was not found",
   },
+  FIELD_NOT_FOUND: {
+    errorCode: "5000",
+    statusCode: 404,
+    message: "the field was not found",
+  },
+  FORM_GROUP_NOT_FOUND: {
+    errorCode: "6000",
+    statusCode: 404,
+    message: "form_group was not found",
+  },
+  FIELD_NOT_BELONG_TO_THE_PROVIDED_FORM: {
+    errorCode: "7000",
+    statusCode: 400,
+    message:
+      "the provided field doesn't belong to the provided form, please check if the form_scheme contains the provided field",
+  },
 };
 
 export default ERRORS;

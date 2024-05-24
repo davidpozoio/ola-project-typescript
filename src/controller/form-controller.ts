@@ -33,7 +33,10 @@ class FormController {
 
   generateForm = asyncErrorHandler(async (req, res) => {
     const form = await formService.findById(req.formId);
-    const formScheme = await formSchemeService.findById(form.form_scheme_id);
+    const formScheme = await formSchemeService.findByIdWithResults(
+      form.form_scheme_id as number,
+      form.id as number
+    );
     res.status(200).json({
       form,
       form_scheme: formScheme,
