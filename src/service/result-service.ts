@@ -41,6 +41,30 @@ class ResultService extends ResultRespository {
 
     return this.resultRepository.update(result);
   }
+
+  async addMultipleResponse(
+    results: Result[],
+    hash?: string,
+    id?: number | string
+  ) {
+    const createdResults: Result[] = [];
+
+    if (hash) {
+      id = (await formService.findByHash(hash)).id;
+    }
+
+    for (let result of results) {
+      createdResults.push(
+        await this.addResponse({
+          field_id: result.field_id,
+          form_id: id,
+          response: result.response,
+        } as Result)
+      );
+    }
+
+    return createdResults;
+  }
 }
 
 const resultService = new ResultService(new MysqlResultRepository());

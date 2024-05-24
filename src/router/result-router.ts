@@ -23,10 +23,13 @@ resultRouter
 
 resultRouter
   .route("/all")
-  .post([
-    body("hash").isString().optional(),
-    body("id").isNumeric().withMessage("id is required"),
-    body("results").isArray().withMessage("results is required"),
-  ]);
+  .put(
+    [
+      body("hash").isString().optional(),
+      body("id").isNumeric().withMessage("id is required"),
+      body("results").isArray().withMessage("results is required"),
+    ],
+    resultController.addMultipleResponses
+  );
 
 export default resultRouter;
