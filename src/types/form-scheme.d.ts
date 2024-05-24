@@ -15,7 +15,18 @@ export interface FormGroup extends RowDataPacket {
 
 export interface Field extends RowDataPacket {
   id: string | number | undefined;
+  component: string;
   label: string;
   form_group_id: string | number | undefined;
   metadata: object;
+}
+
+export interface MetadaField {
+  type: string;
+  options: OptionMetadata[];
+}
+
+export interface OptionMetadata {
+  value: string;
+  label: string;
 }

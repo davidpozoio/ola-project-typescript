@@ -2,6 +2,7 @@ import { RowDataPacket } from "mysql2";
 import pool from "../../config/mysql-config";
 import { Field, FormGroup, FormScheme } from "../../types/form-scheme";
 import FormSchemeRepository from "./form-scheme-repository";
+import getNestedTables from "../../utils/get-nested-tables";
 
 interface FormColums extends RowDataPacket {
   form_scheme: FormScheme;
@@ -21,41 +22,18 @@ export default class MysqlFormSchemeRepository extends FormSchemeRepository {
       nestTables: true,
     });
 
-    const formSchemeMap = new Map<number, FormScheme>();
-    const formGroupMap = new Map<number, FormGroup>();
-    const fieldMap = new Map<number, Field>();
-
-    forms.forEach(({ form_scheme, form_group, field }) => {
-      formSchemeMap.set(form_scheme.id as number, form_scheme);
-      formGroupMap.set(form_group.id as number, form_group);
-      fieldMap.set(field.id as number, field);
-    });
-
-    const formSchemeArray: FormScheme[] = Array.from(formSchemeMap.values());
-
-    for (let formScheme of formSchemeArray) {
-      if (!formScheme.form_groups) {
-        formScheme.form_groups = [];
+    const values = await getNestedTables<FormColums>(
+      forms,
+      [
+        { nameTable: "form_group", foreingTableName: "form_scheme" },
+        { nameTable: "field", foreingTableName: "form_group" },
+      ],
+      {
+        recoverFrom: "form_scheme",
       }
-      Array.from(formGroupMap.values()).forEach((formGroup) => {
-        if (formGroup.form_scheme_id !== formScheme.id) {
-          return;
-        }
-        const index = formScheme.form_groups.push(formGroup);
+    );
 
-        Array.from(fieldMap.values()).forEach((field) => {
-          if (field.form_group_id !== formGroup.id) {
-            return;
-          }
-          if (!formScheme.form_groups[index - 1].fields) {
-            formScheme.form_groups[index - 1].fields = [];
-          }
-          formScheme.form_groups[index - 1].fields.push(field);
-        });
-      });
-    }
-
-    return Array.from(formSchemeMap.values());
+    return values;
   }
 
   async findById(
@@ -75,40 +53,17 @@ export default class MysqlFormSchemeRepository extends FormSchemeRepository {
       [id]
     );
 
-    const formSchemeMap = new Map<number, FormScheme>();
-    const formGroupMap = new Map<number, FormGroup>();
-    const fieldMap = new Map<number, Field>();
-
-    forms.forEach(({ form_scheme, form_group, field }) => {
-      formSchemeMap.set(form_scheme.id as number, form_scheme);
-      formGroupMap.set(form_group.id as number, form_group);
-      fieldMap.set(field.id as number, field);
-    });
-
-    const formSchemeArray: FormScheme[] = Array.from(formSchemeMap.values());
-
-    for (let formScheme of formSchemeArray) {
-      if (!formScheme.form_groups) {
-        formScheme.form_groups = [];
+    const values = await getNestedTables<FormColums>(
+      forms,
+      [
+        { nameTable: "form_group", foreingTableName: "form_scheme" },
+        { nameTable: "field", foreingTableName: "form_group" },
+      ],
+      {
+        recoverFrom: "form_scheme",
       }
-      Array.from(formGroupMap.values()).forEach((formGroup) => {
-        if (formGroup.form_scheme_id !== formScheme.id) {
-          return;
-        }
-        const index = formScheme.form_groups.push(formGroup);
+    );
 
-        Array.from(fieldMap.values()).forEach((field) => {
-          if (field.form_group_id !== formGroup.id) {
-            return;
-          }
-          if (!formScheme.form_groups[index - 1].fields) {
-            formScheme.form_groups[index - 1].fields = [];
-          }
-          formScheme.form_groups[index - 1].fields.push(field);
-        });
-      });
-    }
-
-    return Array.from(formSchemeMap.values())[0];
+    return values[0];
   }
 }

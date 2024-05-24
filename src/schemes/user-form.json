@@ -1,0 +1,61 @@
+{
+  "id": 2,
+  "label": "Formulario de usuario",
+  "form_groups": [
+    {
+      "label": "Inicio",
+      "fields": [
+        {
+          "label": "Cargo solicitado",
+          "component": "select",
+          "metadata": {
+            "type": "string",
+            "options": [{ "value": "design", "label": "Diseño" }]
+          }
+        },
+        {
+          "label": "Lugar",
+          "component": "input",
+          "metadata": {
+            "type": "text"
+          }
+        },
+        {
+          "label": "Fecha",
+          "component": "input",
+          "metadata": {
+            "type": "date"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Mis datos",
+      "fields": [
+        {
+          "label": "Nombres y Apellidos",
+          "component": "input",
+          "metadata": {
+            "type": "text"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Estado Civil",
+      "fields": [
+        {
+          "label": "Estado Civil",
+          "component": "select",
+          "metadata": {
+            "type": "text",
+            "options": [
+              { "value": "single", "label": "soltero" },
+              { "value": "married", "label": "casado" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

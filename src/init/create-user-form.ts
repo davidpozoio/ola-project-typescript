@@ -1,65 +1,166 @@
-import { ResultSetHeader } from "mysql2";
-import pool from "../config/mysql-config";
+import { createFormSchemeJson } from "../utils/form-creation-utils";
+import userFormScheme from "../schemes/user-form.json";
 
 const createUserForm = async () => {
-  const [formUser] = await pool.query<ResultSetHeader>(
-    `INSERT INTO form_scheme (label, id) VALUES ("formulario de usuario", 2)`
-  );
-  formUser.insertId = 2;
+  await createFormSchemeJson(userFormScheme as any); /* 
+  const formUser = await createFormScheme({
+    id: 2,
+    label: "Formulario de usuario",
+  });
   //create first my Data group
-  const [myDataGroup] = await pool.query<ResultSetHeader>(
-    `INSERT INTO form_group (label, form_scheme_id) VALUES ("Mis datos", ?)`,
-    [formUser.insertId]
-  );
+  const myDataGroup = await createFormGroup({
+    label: "Mis datos",
+    form_scheme_id: formUser.id,
+  });
 
   ///create first field
-  await pool.query(
-    `INSERT INTO field (label, component, form_group_id, metadata)
-         VALUES ("Nombres y Apellidos", "input", ?,  '{"type": "text"}')`,
-    [myDataGroup.insertId]
-  );
+  await createFields({
+    component: "input",
+    label: "Nombre y Apellidos",
+    form_group_id: myDataGroup.id,
+    metadata: {
+      type: "text",
+    },
+  });
+  const formUser = await createFormScheme({
+    id: 2,
+    label: "Formulario de usuario",
+  });
+  //create first my Data group
+  const myDataGroup = await createFormGroup({
+    label: "Mis datos",
+    form_scheme_id: formUser.id,
+  });
+
+  ///create first field
+  await createFields({
+    component: "input",
+    label: "Nombre y Apellidos",
+    form_group_id: myDataGroup.id,
+    metadata: {
+      type: "text",
+    },
+  });
 
   //create birth group
-  const [myBirthGroup] = await pool.query<ResultSetHeader>(
-    `INSERT INTO form_group (label, form_scheme_id) VALUES ("Datos de nacimiento", ?)`,
-    [formUser.insertId]
-  );
+  const myBirthGroup = await createFormGroup({
+    label: "Datos de nacimiento",
+    form_scheme_id: formUser.id,
+  });
 
-  await pool.query(
-    `INSERT INTO field (label, component, form_group_id, metadata)
-         VALUES ("Lugar de nacimiento", "input", ?,  '{"type": "text"}')`,
-    [myBirthGroup.insertId]
-  );
+  await createFields({
+    label: "Lugar de nacimiento",
+    component: "input",
+    form_group_id: myBirthGroup.id,
+    metadata: {
+      type: "text",
+    },
+  });
 
-  await pool.query(
-    `INSERT INTO field (label, component, form_group_id, metadata)
-         VALUES ("Fecha de nacimiento", "input", ?,  '{"type": "date"}')`,
-    [myBirthGroup.insertId]
-  );
+  await createFields({
+    label: "Fecha de nacimiento",
+    component: "input",
+    form_group_id: myBirthGroup.id,
+    metadata: {
+      type: "date",
+    },
+  });
 
-  await pool.query(
-    `INSERT INTO field (label, component, form_group_id, metadata)
-         VALUES ("Edad", "input", ?,  '{"type": "number"}')`,
-    [myBirthGroup.insertId]
-  );
+  await createFields({
+    label: "Edad",
+    component: "input",
+    form_group_id: myBirthGroup.id,
+    metadata: {
+      type: "number",
+    },
+  });
+  /// create civil group
+  const myCivilGroup = await createFormGroup({
+    label: "Estado Civil",
+    form_scheme_id: formUser.id,
+  });
 
-  //create civil group
-  const [myCivilGroup] = await pool.query<ResultSetHeader>(
-    `INSERT INTO form_group (label, form_scheme_id) VALUES ("Estado civil", ?)`,
-    [formUser.insertId]
-  );
+  await createFields({
+    label: "Estado civil",
+    component: "select",
+    form_group_id: myCivilGroup.id,
+    metadata: {
+      type: "text",
+      options: [
+        { value: "married", label: "casado" },
+        { value: "single", label: "soltero" },
+      ],
+    },
+  });
 
-  await pool.query(
-    `INSERT INTO field (label, component, form_group_id, metadata)
-         VALUES ("Estado civil", "select", ?,  '{"type": "text", "options": [{"value": "single", "label": "soltero"}, {"value": "married", "label": "casado"}]}')`,
-    [myCivilGroup.insertId]
-  );
+  await createFields({
+    label: "N° de hijos",
+    component: "input",
+    form_group_id: myCivilGroup.id,
+    metadata: {
+      type: "number",
+    },
+  });
 
-  await pool.query(
-    `INSERT INTO field (label, component, form_group_id, metadata)
-         VALUES ("N° de hijos", "input", ?,  '{"type": "number"}')`,
-    [myCivilGroup.insertId]
-  );
+  //create birth group
+  const myBirthGroup = await createFormGroup({
+    label: "Datos de nacimiento",
+    form_scheme_id: formUser.id,
+  });
+
+  await createFields({
+    label: "Lugar de nacimiento",
+    component: "input",
+    form_group_id: myBirthGroup.id,
+    metadata: {
+      type: "text",
+    },
+  });
+
+  await createFields({
+    label: "Fecha de nacimiento",
+    component: "input",
+    form_group_id: myBirthGroup.id,
+    metadata: {
+      type: "date",
+    },
+  });
+
+  await createFields({
+    label: "Edad",
+    component: "input",
+    form_group_id: myBirthGroup.id,
+    metadata: {
+      type: "number",
+    },
+  });
+  /// create civil group
+  const myCivilGroup = await createFormGroup({
+    label: "Estado Civil",
+    form_scheme_id: formUser.id,
+  });
+
+  await createFields({
+    label: "Estado civil",
+    component: "select",
+    form_group_id: myCivilGroup.id,
+    metadata: {
+      type: "text",
+      options: [
+        { value: "married", label: "casado" },
+        { value: "single", label: "soltero" },
+      ],
+    },
+  });
+
+  await createFields({
+    label: "N° de hijos",
+    component: "input",
+    form_group_id: myCivilGroup.id,
+    metadata: {
+      type: "number",
+    },
+  }); */
 };
 
 export default createUserForm;

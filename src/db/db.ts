@@ -11,7 +11,7 @@ const startDB = async () => {
     const sql = await readFile(`${__dirname}/${file}`, {
       encoding: "utf-8",
     });
-    await pool.query(sql).catch((err) => {
+    await pool.query({ sql, nestTables: true }).catch((err) => {
       console.log(err.message);
     });
   });

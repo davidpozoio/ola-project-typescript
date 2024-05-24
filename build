@@ -1,5 +1,5 @@
 #!/bin/bash
 
-./node_modules/.bin/tsc  --esModuleInterop --outdir dist/app  src/server.ts
+./node_modules/.bin/tsc  --esModuleInterop --resolveJsonModule --outdir dist/app  src/server.ts
 ./node_modules/.bin/esbuild dist/app/server.js --bundle --platform=node  --minify --outfile=dist/server.js --packages=external
 rm -r dist/app
