@@ -92,6 +92,11 @@ const ERRORS: { [key: string]: ErrorData } = {
     message:
       "the provided field doesn't belong to the provided form, please check if the form_scheme contains the provided field",
   },
+  FILE_FORMAT_NOT_ALLOWED: {
+    errorCode: "8000",
+    statusCode: 400,
+    message: "the format of the provided file is not allowed",
+  },
 };
 
 export default ERRORS;

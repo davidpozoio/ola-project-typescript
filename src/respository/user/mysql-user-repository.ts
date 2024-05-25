@@ -1,7 +1,14 @@
 import pool from "../../config/mysql-config";
+import { Multimedia } from "../../types/multimedia";
 import { User } from "../../types/user";
+import getNestedTables from "../../utils/get-nested-tables";
 import { UserRepository } from "./user-repository";
-import { ResultSetHeader } from "mysql2/promise";
+import { ResultSetHeader, RowDataPacket } from "mysql2/promise";
+
+interface UserResult extends RowDataPacket {
+  users: User[];
+  multimedia: Multimedia[];
+}
 
 export default class MysqlUserRepository extends UserRepository {
   async findAll(): Promise<User[]> {
@@ -10,12 +17,25 @@ export default class MysqlUserRepository extends UserRepository {
   }
 
   async findById(id: string | number | undefined): Promise<User | undefined> {
-    const [[user]] = await pool.query<User[]>(
-      "SELECT * FROM users WHERE id = ?",
+    const [users] = await pool.query<UserResult[]>(
+      {
+        sql: `
+        SELECT users.*, multimedia.* FROM users
+          LEFT JOIN multimedia
+          ON multimedia.users_id = users.id
+          WHERE users.id = ?`,
+        nestTables: true,
+      },
       [id]
     );
+    console.log(users);
+    const values = await getNestedTables(
+      users,
+      [{ nameTable: "multimedia", foreingTableName: "users" }],
+      { recoverFrom: "users" }
+    );
 
-    return user;
+    return values[0];
   }
 
   async save(user: User): Promise<User> {

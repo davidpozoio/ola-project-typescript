@@ -14,4 +14,8 @@ export default abstract class Repository<T> {
   async update(object: T): Promise<T> {
     throw new Error("method not implemented");
   }
+
+  async deleteById(id: number | string | undefined): Promise<T> {
+    throw new Error("method not implemented");
+  }
 }

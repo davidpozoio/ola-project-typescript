@@ -17,5 +17,6 @@ services:
       - ola-network
     volumes:
       - ./src:/home/app/src
+      - ./multimedia:/home/app/multimedia
     depends_on:
       - mysql-database

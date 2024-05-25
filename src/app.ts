@@ -10,6 +10,7 @@ import authRouter from "./router/auth-router";
 import resultRouter from "./router/result-router";
 import formSchemeRouter from "./router/form-scheme-router";
 import formRouter from "./router/form-router";
+import multimediaRouter from "./router/multimedia-router";
 
 const app = express();
 
@@ -29,6 +30,8 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/", express.static(path.resolve(__dirname, "static", "dist")));
+
+app.use(`${ENV.API_PREFIX}/multimedia`, multimediaRouter);
 
 app.use(`${ENV.API_PREFIX}/users`, userRouter);
 app.use(`${ENV.API_PREFIX}/`, authRouter);
