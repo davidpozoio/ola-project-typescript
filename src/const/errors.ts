@@ -97,6 +97,11 @@ const ERRORS: { [key: string]: ErrorData } = {
     statusCode: 400,
     message: "the format of the provided file is not allowed",
   },
+  FILE_NOT_FOUND: {
+    errorCode: "8001",
+    statusCode: 404,
+    message: "the file was not found",
+  },
 };
 
 export default ERRORS;

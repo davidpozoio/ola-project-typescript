@@ -1,5 +1,6 @@
 import ERRORS from "../const/errors";
 import multimediaService from "../service/multimedia-service";
+import userService from "../service/user-service";
 import { Multimedia } from "../types/multimedia";
 import asyncErrorHandler from "../utils/asyncErrorHandler";
 import HttpError from "../utils/http-error";
@@ -21,6 +22,22 @@ class MultimediaController {
     res.status(200).json({
       message: "the file was submitted succesfully!",
       media,
+    });
+  });
+
+  deleteByHash = asyncErrorHandler(async (req, res) => {
+    const { hash } = req.params;
+    console.log(hash);
+    const file = await multimediaService.findByHash(hash);
+
+    if (file.users_id !== req.decodedToken?.id) {
+      throw new HttpError(ERRORS.FILE_NOT_FOUND);
+    }
+
+    await multimediaService.deleteByHash(hash);
+
+    res.status(200).json({
+      message: "file deleted successfully",
     });
   });
 }

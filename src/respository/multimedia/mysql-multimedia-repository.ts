@@ -29,14 +29,27 @@ export default class MysqlMultimediaRepository extends MultimediaRepository {
     } as Multimedia;
   }
 
-  async deleteByHash(hash: string): Promise<Multimedia> {
+  async deleteByHash(hash: string): Promise<Multimedia | undefined> {
     const [media] = await pool.query<ResultSetHeader>(
       "DELETE FROM multimedia WHERE hash = ?",
       [hash]
     );
 
+    if (media.affectedRows === 0) {
+      return undefined;
+    }
+
     return {
       hash,
     } as Multimedia;
+  }
+
+  async findByHash(hash: string): Promise<Multimedia | undefined> {
+    const [[media]] = await pool.query<Multimedia[]>(
+      "SELECT * FROM multimedia WHERE hash = ?",
+      [hash]
+    );
+
+    return media;
   }
 }

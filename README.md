@@ -118,6 +118,31 @@ Return the index.html
 }
 ```
 
+## UPLOAD FILES
+
+`POST http://localhost:8000/api/v1/multimedia`
+
+```html
+<form method="post">
+  <input type="text" name="name" />
+  <input type="file" name="media" />
+  <button>submit</button>
+</form>
+```
+
+#### response:
+
+```json
+{
+  "id": 1,
+  "name": "name of the file",
+  "hash": "identifier"
+}
+```
+
+`GET http://localhost:8000/api/v1/multimedia/:image_name.jpg`  
+you can get the images with this endpoint
+
 ## FORM_SCHEME
 
 ### **Get all form_schemes**
