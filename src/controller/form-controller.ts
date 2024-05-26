@@ -74,8 +74,15 @@ class FormController {
     const form = await formService.findById(id, {
       id: req.decodedToken?.id as number,
     });
+
+    const formScheme = await formSchemeService.findByIdWithResults(
+      form.form_scheme_id as number,
+      form.id as number
+    );
+
     res.status(200).json({
       form,
+      form_scheme: formScheme,
     });
   });
 }
