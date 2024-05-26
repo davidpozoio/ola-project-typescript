@@ -2,6 +2,7 @@ import { ResultSetHeader } from "mysql2";
 import pool from "../../config/mysql-config";
 import { Form } from "../../types/form";
 import { FormRepository } from "./form-repository";
+import { Owner } from "../repository";
 
 export class MysqlFormRepository extends FormRepository {
   async findAll(): Promise<Form[]> {
@@ -39,7 +40,17 @@ export class MysqlFormRepository extends FormRepository {
     } as Form;
   }
 
-  async findById(id: string | number | undefined): Promise<Form | undefined> {
+  async findById(
+    id: string | number | undefined,
+    owner?: Owner
+  ): Promise<Form | undefined> {
+    if (owner) {
+      const [[form]] = await pool.query<Form[]>(
+        "SELECT * FROM form WHERE id = ? AND user_id",
+        [id, owner.id]
+      );
+      return form;
+    }
     const [[form]] = await pool.query<Form[]>(
       "SELECT * FROM form WHERE id = ?",
       [id]
@@ -79,5 +90,14 @@ export class MysqlFormRepository extends FormRepository {
       id: form.id,
       expire_hash_time: form.expire_hash_time,
     } as Form;
+  }
+
+  async findAllByUserId(id: string | number): Promise<Form[]> {
+    const [forms] = await pool.query<Form[]>(
+      "SELECT * FROM form WHERE user_id = ?",
+      [id]
+    );
+
+    return forms;
   }
 }

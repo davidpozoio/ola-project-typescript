@@ -29,7 +29,7 @@ class MultimediaController {
     console.log(hash);
     const file = await multimediaService.findByHash(hash);
 
-    if (file.users_id !== req.decodedToken?.id) {
+    if (file.user_id !== req.decodedToken?.id) {
       throw new HttpError(ERRORS.FILE_NOT_FOUND);
     }
 

@@ -1,9 +1,11 @@
 import ERRORS from "../const/errors";
 import { Blacklist } from "../types/blacklist";
+import { Form } from "../types/form";
 import { Roles, User } from "../types/user";
 import crypPassword, { comparePassword } from "../utils/crypt-password";
 import HttpError from "../utils/http-error";
 import blacklistService from "./blacklist-service";
+import formService from "./form-service";
 import userService from "./user-service";
 
 class AuthService {
@@ -11,6 +13,11 @@ class AuthService {
     user.password = await crypPassword(user.password || "");
     user.role = Roles.user;
     const createdUser = await userService.save(user);
+    await formService.save({
+      user_id: createdUser.id,
+      form_scheme_id: 2,
+    } as Form);
+
     return createdUser;
   }
 

@@ -8,6 +8,7 @@ services:
       - ola-network
     environment:
       - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=ola_project_database
   ola-project:
     working_dir: /home/app
     build: .

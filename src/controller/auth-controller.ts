@@ -12,8 +12,6 @@ class AuthController {
     const user = await authService.signup(req.body);
     user.password = undefined;
 
-    await createTokenCookie(res, { id: user.id });
-
     res.status(200).json({
       message: "user created successfully",
       user,

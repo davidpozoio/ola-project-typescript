@@ -5,6 +5,7 @@ import crypto from "crypto";
 import HttpError from "../utils/http-error";
 import ERRORS from "../const/errors";
 import { generateHmacHash } from "../utils/generate-hmac-hash";
+import { Owner } from "../respository/repository";
 
 class FormService extends FormRepository {
   constructor(private readonly formRepository: FormRepository) {
@@ -19,8 +20,11 @@ class FormService extends FormRepository {
     return this.formRepository.save(form);
   }
 
-  async findById(id: string | number | undefined): Promise<Form> {
-    const form = await this.formRepository.findById(id);
+  async findById(
+    id: string | number | undefined,
+    owner?: Owner
+  ): Promise<Form> {
+    const form = await this.formRepository.findById(id, owner);
     if (!form) {
       throw new HttpError(ERRORS.FORM_NOT_FOUND);
     }
@@ -53,6 +57,10 @@ class FormService extends FormRepository {
   async setExpireTime(form: Form): Promise<Form | undefined> {
     form.expire_hash_time = new Date(new Date().getTime() + 1 * 60000);
     return this.formRepository.setExpireTime(form);
+  }
+
+  async findAllByUserId(id: string | number): Promise<Form[]> {
+    return this.formRepository.findAllByUserId(id);
   }
 }
 

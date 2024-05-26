@@ -5,6 +5,6 @@ CREATE TABLE form(
     user_id INT NOT NULL,
     form_scheme_id INT NOT NULL,
     expire_hash_time DATETIME DEFAULT NULL,
-    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(user_id) REFERENCES user(id),
     FOREIGN KEY(form_scheme_id) REFERENCES form_scheme(id)
 )

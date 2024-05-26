@@ -5,7 +5,9 @@ import asyncErrorHandler from "../utils/asyncErrorHandler";
 
 class FormController {
   findAll = asyncErrorHandler(async (req, res) => {
-    const forms = await formService.findAll();
+    const forms = await formService.findAllByUserId(
+      req.decodedToken?.id as number
+    );
 
     res.status(200).json({
       forms,
@@ -61,6 +63,17 @@ class FormController {
       user_id: decodedToken?.id,
     } as Form);
 
+    res.status(200).json({
+      form,
+    });
+  });
+
+  findById = asyncErrorHandler(async (req, res) => {
+    const { id } = req.params;
+
+    const form = await formService.findById(id, {
+      id: req.decodedToken?.id as number,
+    });
     res.status(200).json({
       form,
     });

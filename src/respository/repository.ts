@@ -1,9 +1,16 @@
+export interface Owner {
+  id: string | number;
+}
+
 export default abstract class Repository<T> {
   async findAll(): Promise<T[]> {
     throw new Error("method not implemented");
   }
 
-  async findById(id: string | number | undefined): Promise<T | undefined> {
+  async findById(
+    id: string | number | undefined,
+    owner?: Owner
+  ): Promise<T | undefined> {
     throw new Error("method not implemented");
   }
 

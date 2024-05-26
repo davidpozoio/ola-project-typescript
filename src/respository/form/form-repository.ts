@@ -17,4 +17,8 @@ export class FormRepository extends Repository<Form> {
   async setExpireTime(form: Form): Promise<Form | undefined> {
     throw new Error("the method is not implemented");
   }
+
+  async findAllByUserId(id: string | number): Promise<Form[]> {
+    throw new Error("the method is not implemented");
+  }
 }

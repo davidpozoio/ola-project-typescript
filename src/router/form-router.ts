@@ -9,6 +9,7 @@ import requireLinkHash from "../middleware/require-link-hash";
 const formRouter = Router();
 
 formRouter.route("/").get(requireAuth, formController.findAll);
+formRouter.route("/:id").get(requireAuth, formController.findById);
 
 formRouter
   .route("/")

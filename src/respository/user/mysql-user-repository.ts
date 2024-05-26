@@ -12,7 +12,7 @@ interface UserResult extends RowDataPacket {
 
 export default class MysqlUserRepository extends UserRepository {
   async findAll(): Promise<User[]> {
-    const [users] = await pool.query<User[]>("SELECT * FROM users");
+    const [users] = await pool.query<User[]>("SELECT * FROM user");
     return users;
   }
 
@@ -20,10 +20,10 @@ export default class MysqlUserRepository extends UserRepository {
     const [users] = await pool.query<UserResult[]>(
       {
         sql: `
-        SELECT users.*, multimedia.* FROM users
+        SELECT user.*, multimedia.* FROM user
           LEFT JOIN multimedia
-          ON multimedia.users_id = users.id
-          WHERE users.id = ?`,
+          ON multimedia.user_id = user.id
+          WHERE user.id = ?`,
         nestTables: true,
       },
       [id]
@@ -31,8 +31,8 @@ export default class MysqlUserRepository extends UserRepository {
 
     const values = await getNestedTables(
       users,
-      [{ nameTable: "multimedia", foreingTableName: "users" }],
-      { recoverFrom: "users" }
+      [{ nameTable: "multimedia", foreingTableName: "user" }],
+      { recoverFrom: "user" }
     );
 
     return values[0];
@@ -40,7 +40,7 @@ export default class MysqlUserRepository extends UserRepository {
 
   async save(user: User): Promise<User> {
     const [createdUser] = await pool.query<ResultSetHeader>(
-      "INSERT INTO users (email, fullname, password, area, has_access, role) VALUES (?, ?, ?, ?, ?, ?)",
+      "INSERT INTO user (email, fullname, password, area, has_access, role) VALUES (?, ?, ?, ?, ?, ?)",
       [user.email, user.fullname, user.password, user.area, 0, user.role]
     );
 
@@ -55,7 +55,7 @@ export default class MysqlUserRepository extends UserRepository {
 
   async findByEmail(email: string): Promise<User | undefined> {
     const [[user]] = await pool.query<User[]>(
-      "SELECT id, email, password, fullname, area, has_access, role FROM users WHERE email = ?",
+      "SELECT id, email, password, fullname, area, has_access, role FROM user WHERE email = ?",
       [email]
     );
     return user;
@@ -63,7 +63,7 @@ export default class MysqlUserRepository extends UserRepository {
 
   async saveAdmin(user: User): Promise<User> {
     const [createdUser] = await pool.query<ResultSetHeader>(
-      "INSERT INTO users (email, fullname, password, area, has_access, role, verified) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO user (email, fullname, password, area, has_access, role, verified) VALUES (?, ?, ?, ?, ?, ?, ?)",
       [user.email, user.fullname, user.password, user.area, 1, user.role, 1]
     );
 
@@ -81,7 +81,7 @@ export default class MysqlUserRepository extends UserRepository {
     userId: number | string
   ): Promise<User> {
     const [updatedUser] = await pool.query<ResultSetHeader>(
-      "UPDATE users SET has_access = ? WHERE id = ?",
+      "UPDATE user SET has_access = ? WHERE id = ?",
       [Number(access), userId]
     );
 
