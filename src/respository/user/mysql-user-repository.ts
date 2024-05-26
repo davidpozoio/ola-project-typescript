@@ -28,7 +28,7 @@ export default class MysqlUserRepository extends UserRepository {
       },
       [id]
     );
-    console.log(users);
+
     const values = await getNestedTables(
       users,
       [{ nameTable: "multimedia", foreingTableName: "users" }],

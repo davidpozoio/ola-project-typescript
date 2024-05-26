@@ -5,4 +5,4 @@ CREATE TABLE result(
     response JSON NOT NULL,
     FOREIGN KEY(field_id) REFERENCES field(id),
     FOREIGN KEY(form_id) REFERENCES form(id)
-);
+)

@@ -12,7 +12,7 @@ const testConnection = async () => {
     } catch {
       console.log("testing connection...");
     }
-    await delay(3);
+    await delay(0.5);
   }
 };
 

@@ -7,4 +7,4 @@ CREATE TABLE users(
     has_access BOOLEAN NOT NULL DEFAULT 0,
     verified BOOLEAN NOT NULL DEFAULT 0,
     role ENUM("admin", "user", "sales") DEFAULT "user"
-);
+)

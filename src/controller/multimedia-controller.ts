@@ -1,6 +1,5 @@
 import ERRORS from "../const/errors";
 import multimediaService from "../service/multimedia-service";
-import userService from "../service/user-service";
 import { Multimedia } from "../types/multimedia";
 import asyncErrorHandler from "../utils/asyncErrorHandler";
 import HttpError from "../utils/http-error";

@@ -56,6 +56,233 @@
           }
         }
       ]
+    },
+    {
+      "label": "Dirección",
+      "fields": [
+        {
+          "label": "Dirección Domicilio",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        },
+        {
+          "label": "Ciudad",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        },
+        {
+          "label": "Parroquia",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        },
+        {
+          "label": "Teléfono",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Tallas",
+      "fields": [
+        {
+          "label": "Calzado",
+          "component": "input",
+          "metadata": {
+            "type": "number"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Banco o cooperativa",
+      "fields": [
+        {
+          "label": "Nombre de banco o cooperativa",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        },
+        {
+          "label": "Número de cuenta",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Fisiológico",
+      "fields": [
+        {
+          "label": "Tipo de sangre",
+          "component": "select",
+          "metadata": {
+            "type": "string",
+            "options": [
+              { "value": "A+", "label": "A+" },
+              { "value": "A-", "label": "A-" },
+              { "value": "B+", "label": "B+" },
+              { "value": "B-", "label": "B-" },
+              { "value": "AB+", "label": "AB+" },
+              { "value": "AB-", "label": "AB-" },
+              { "value": "O+", "label": "O+" },
+              { "value": "O-", "label": "O-" }
+            ]
+          }
+        },
+        {
+          "label": "Presenta algún tipo de discapacidad",
+          "component": "select",
+          "metadata": {
+            "options": [
+              { "value": 1, "label": "Sí" },
+              { "value": 0, "label": "No" }
+            ]
+          }
+        },
+        {
+          "label": "Carnet Conadis",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Estado Civil información adicional",
+      "fields": [
+        {
+          "label": "Nombre del cónyuge",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        },
+        {
+          "label": "Empresa y cargo",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        },
+        {
+          "label": "Trabaja",
+          "component": "select",
+          "metadata": {
+            "type": "boolean",
+            "options": [
+              { "value": 1, "label": "Sí" },
+              { "value": 0, "label": "No" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "Familia",
+      "fields": [
+        {
+          "label": "Cargas familiares",
+          "component": "select",
+          "metadata": {
+            "type": "boolean",
+            "options": [
+              { "value": 1, "label": "Sí" },
+              { "value": 0, "label": "No" }
+            ]
+          }
+        },
+        {
+          "label": "Número de cargas familiares",
+          "component": "input",
+          "metadata": {
+            "type": "number"
+          }
+        },
+        {
+          "label": "En caso de emergencia llamar al número",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        },
+        {
+          "label": "Ha trabajado anteriormente en alguna empresa de",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Estudios",
+      "fields": [
+        {
+          "label": "Institución",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        },
+        {
+          "label": "Ciudad",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        },
+        {
+          "label": "Grado o curso aprobado",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        },
+        {
+          "label": "Título/Profesión",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Empresas anteriores (¿en qué empresas ha trabajado o realizado su pasantías antes?)",
+      "fields": [
+        {
+          "label": "Liste las empresas anteriores en las que ha trabajado",
+          "component": "input",
+          "metadata": {
+            "type": "list/string"
+          }
+        }
+      ]
+    },
+    {
+      "label": "Terminos y condiciones",
+      "fields": [
+        {
+          "label": "Declaro que la információn proporcionada corresponde a la verdad y asumo las consecuencias legales si se demuestra lo contrario",
+          "component": "select",
+          "metadata": {
+            "type": "boolean/check"
+          }
+        }
+      ]
     }
   ]
 }

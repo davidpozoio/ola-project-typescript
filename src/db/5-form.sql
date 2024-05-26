@@ -7,4 +7,4 @@ CREATE TABLE form(
     expire_hash_time DATETIME DEFAULT NULL,
     FOREIGN KEY(user_id) REFERENCES users(id),
     FOREIGN KEY(form_scheme_id) REFERENCES form_scheme(id)
-);
+)

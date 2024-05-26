@@ -4,4 +4,4 @@ CREATE TABLE multimedia(
     hash VARCHAR(300) NOT NULL UNIQUE,
     users_id INT NOT NULL,
     FOREIGN KEY (users_id) REFERENCES users(id)
-);
+)

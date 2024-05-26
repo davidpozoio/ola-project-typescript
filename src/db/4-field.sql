@@ -5,4 +5,4 @@ CREATE TABLE field(
     metadata JSON NOT NULL,
     form_group_id INT NOT NULL,
     FOREIGN KEY(form_group_id) REFERENCES form_group(id)
-);
+)

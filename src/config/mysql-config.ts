@@ -8,7 +8,6 @@ const pool = mysql.createPool({
   password: ENV.DATABASE_PASSWORD,
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 1,
 });
 
 export default pool;

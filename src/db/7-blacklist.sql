@@ -3,4 +3,4 @@ CREATE TABLE blacklist(
     token VARCHAR(300) NOT NULL,
     user_id INT NOT NULL,
     FOREIGN KEY(user_id) REFERENCES users(id)
-);
+)
