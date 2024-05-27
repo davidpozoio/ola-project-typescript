@@ -17,4 +17,6 @@ fieldRouter.route("/").patch(
   fieldController.updateResult
 );
 
+fieldRouter.route("/all").get(fieldController.getAllFieldsOfForm);
+
 export default fieldRouter;

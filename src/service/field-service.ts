@@ -1,6 +1,7 @@
 import ERRORS from "../const/errors";
 import FieldRepository from "../respository/field/field-repository";
 import MysqlFieldRepository from "../respository/field/mysq-field-repository";
+import { Owner } from "../respository/repository";
 import { Field } from "../types/form-scheme";
 import HttpError from "../utils/http-error";
 
@@ -21,6 +22,13 @@ class FieldService extends FieldRepository {
     }
 
     return field;
+  }
+
+  async findAllBySchemeId(
+    formSchemeId: string | number,
+    owner?: Owner | undefined
+  ): Promise<Field[]> {
+    return this.fieldRespository.findAllBySchemeId(formSchemeId, owner);
   }
 }
 

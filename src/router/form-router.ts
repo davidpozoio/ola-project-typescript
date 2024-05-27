@@ -8,7 +8,14 @@ import requireLinkHash from "../middleware/require-link-hash";
 
 const formRouter = Router();
 
-formRouter.route("/").get(requireAuth, formController.findAll);
+formRouter
+  .route("/")
+  .get(
+    requireAuth,
+    checkRole([Roles.admin, Roles.sales]),
+    formController.findAll
+  );
+formRouter.route("/user-form").get(requireAuth, formController.getUserForm);
 formRouter.route("/:id").get(requireAuth, formController.findById);
 
 formRouter
@@ -53,6 +60,14 @@ formRouter
   .post(
     [body("id").isNumeric().withMessage("id is required")],
     formController.invalidateLink
+  );
+
+formRouter
+  .route("/verify-form")
+  .post(
+    requireAuth,
+    [body("id").isNumeric().withMessage("id is required")],
+    formController.verifyForm
   );
 
 export default formRouter;

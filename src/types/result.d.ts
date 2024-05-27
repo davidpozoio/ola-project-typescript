@@ -7,4 +7,4 @@ export interface Result extends RowDataPacket {
   response: ResultResponse;
 }
 
-export type ResultResponse = string | { result: string; value: string }[];
+export type ResultResponse = { value: string };

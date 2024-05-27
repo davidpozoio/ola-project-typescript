@@ -55,6 +55,16 @@ const ERRORS: { [key: string]: ErrorData } = {
     statusCode: 404,
     message: "the form was not found",
   },
+  RESULTS_NOT_ENOUGH: {
+    errorCode: "2005",
+    statusCode: 400,
+    message: "you need to fill more fields",
+  },
+  RESULTS_ARE_VOID: {
+    errorCode: "2006",
+    statusCode: 400,
+    message: "there are still void results, please fill it",
+  },
   HASH_IS_NOT_VALID: {
     errorCode: "3001",
     statusCode: 400,

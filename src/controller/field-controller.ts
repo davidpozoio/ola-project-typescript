@@ -9,6 +9,14 @@ class FieldController {
       field,
     });
   });
+
+  getAllFieldsOfForm = asyncErrorHandler(async (req, res) => {
+    const fields = await fieldService.findAllBySchemeId(2, { id: 1 });
+
+    res.status(200).json({
+      fields,
+    });
+  });
 }
 
 const fieldController = new FieldController();

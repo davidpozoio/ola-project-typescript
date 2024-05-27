@@ -1,5 +1,5 @@
 import { Form } from "../../types/form";
-import Repository from "../repository";
+import Repository, { Owner } from "../repository";
 
 export class FormRepository extends Repository<Form> {
   async addHash(form: Form): Promise<Form> {
@@ -19,6 +19,21 @@ export class FormRepository extends Repository<Form> {
   }
 
   async findAllByUserId(id: string | number): Promise<Form[]> {
+    throw new Error("the method is not implemented");
+  }
+
+  async findByFormSchemeId(
+    formSchemeId: string | number,
+    owner?: Owner
+  ): Promise<Form | undefined> {
+    throw new Error("the method is not implemented");
+  }
+
+  async updateDone(
+    id: number,
+    done: boolean,
+    owner?: Owner
+  ): Promise<Form | undefined> {
     throw new Error("the method is not implemented");
   }
 }

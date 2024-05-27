@@ -65,6 +65,10 @@ class ResultService extends ResultRespository {
 
     return createdResults;
   }
+
+  async findAllByFormId(formId: string | number): Promise<Result[]> {
+    return this.resultRepository.findAllByFormId(formId);
+  }
 }
 
 const resultService = new ResultService(new MysqlResultRepository());

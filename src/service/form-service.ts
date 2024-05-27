@@ -6,6 +6,8 @@ import HttpError from "../utils/http-error";
 import ERRORS from "../const/errors";
 import { generateHmacHash } from "../utils/generate-hmac-hash";
 import { Owner } from "../respository/repository";
+import fieldService from "./field-service";
+import resultService from "./result-service";
 
 class FormService extends FormRepository {
   constructor(private readonly formRepository: FormRepository) {
@@ -61,6 +63,54 @@ class FormService extends FormRepository {
 
   async findAllByUserId(id: string | number): Promise<Form[]> {
     return this.formRepository.findAllByUserId(id);
+  }
+
+  async findByFormSchemeId(
+    formSchemeId: string | number,
+    owner?: Owner
+  ): Promise<Form> {
+    const form = await this.formRepository.findByFormSchemeId(
+      formSchemeId,
+      owner
+    );
+
+    if (!form) {
+      throw new HttpError(ERRORS.FORM_NOT_FOUND);
+    }
+
+    return form;
+  }
+
+  async verifyForm(id: string | number, owner?: Owner): Promise<void> {
+    const form = await this.findById(id, owner);
+    const fields = await fieldService.findAllBySchemeId(
+      form.form_scheme_id as number
+    );
+    const results = await resultService.findAllByFormId(id);
+
+    if (fields.length !== results.length) {
+      throw new HttpError(ERRORS.RESULTS_NOT_ENOUGH);
+    }
+
+    for (let result of results) {
+      if (!result.response.value) {
+        throw new HttpError(ERRORS.RESULTS_ARE_VOID);
+      }
+    }
+  }
+
+  async updateDone(
+    id: number,
+    done: boolean,
+    owner?: Owner | undefined
+  ): Promise<Form> {
+    const form = await this.formRepository.updateDone(id, done, owner);
+
+    if (!form) {
+      throw new HttpError(ERRORS.FORM_NOT_FOUND);
+    }
+
+    return form;
   }
 }
 

@@ -1,3 +1,4 @@
+import FORM_SCHEMES from "../const/form-schemes-ids";
 import formSchemeService from "../service/form-scheme-service";
 import formService from "../service/form-service";
 import { Form } from "../types/form";
@@ -83,6 +84,36 @@ class FormController {
     res.status(200).json({
       form,
       form_scheme: formScheme,
+    });
+  });
+
+  getUserForm = asyncErrorHandler(async (req, res) => {
+    const userForm = await formService.findByFormSchemeId(
+      FORM_SCHEMES.USER_FORM_ID,
+      { id: req.decodedToken?.id as number }
+    );
+
+    const formScheme = await formSchemeService.findByIdWithResults(
+      userForm.form_scheme_id as number,
+      userForm.id as number
+    );
+
+    res.status(200).json({
+      user_form: userForm,
+      form_scheme: formScheme,
+    });
+  });
+
+  verifyForm = asyncErrorHandler(async (req, res) => {
+    const { id } = req.body;
+    await formService.verifyForm(id, { id: req.decodedToken?.id as number });
+    const form = await formService.updateDone(id, true, {
+      id: req.decodedToken?.id as number,
+    });
+
+    res.status(200).json({
+      message: "the form is done!",
+      form,
     });
   });
 }

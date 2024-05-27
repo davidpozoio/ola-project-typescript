@@ -46,4 +46,13 @@ export default class MysqlResultRepository extends ResultRespository {
       field_id: result.field_id,
     } as Result;
   }
+
+  async findAllByFormId(formId: string | number): Promise<Result[]> {
+    const [results] = await pool.query<Result[]>(
+      "SELECT * FROM result WHERE form_id = ?",
+      [formId]
+    );
+
+    return results;
+  }
 }

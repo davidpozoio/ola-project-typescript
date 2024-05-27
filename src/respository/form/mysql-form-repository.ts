@@ -100,4 +100,49 @@ export class MysqlFormRepository extends FormRepository {
 
     return forms;
   }
+
+  async findByFormSchemeId(
+    formSchemeId: string | number,
+    owner?: Owner
+  ): Promise<Form | undefined> {
+    if (owner) {
+      const [[form]] = await pool.query<Form[]>(
+        "SELECT * FROM form WHERE form_scheme_id = ? AND user_id = ?",
+        [formSchemeId, owner.id]
+      );
+
+      return form;
+    }
+
+    const [[form]] = await pool.query<Form[]>(
+      "SELECT * FROM form WHERE form_scheme_id = ?",
+      [formSchemeId]
+    );
+
+    return form;
+  }
+
+  async updateDone(
+    id: number,
+    done: boolean,
+    owner?: Owner | undefined
+  ): Promise<Form | undefined> {
+    const query = owner
+      ? "UPDATE form SET done = ? WHERE id = ? AND user_id = ?"
+      : "UPDATE form SET done = ? WHERE id = ? ";
+
+    const params = owner ? [done, id, owner.id] : [id];
+
+    const [updatedForm] = await pool.query<ResultSetHeader>(query, params);
+
+    if (updatedForm.affectedRows === 0) {
+      return undefined;
+    }
+
+    return {
+      id,
+      done,
+      user_id: owner?.id,
+    } as Form;
+  }
 }
