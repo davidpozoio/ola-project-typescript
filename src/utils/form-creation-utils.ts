@@ -67,26 +67,20 @@ export async function createFormSchemeJson(formScheme: FormScheme) {
     label: formScheme.label,
   });
 
-  const formGroupsPromise = formScheme.form_groups.map((formGroup) => {
-    return createFormGroup({
+  for (let formGroup of formScheme.form_groups) {
+    const createdFormGroup = await createFormGroup({
       label: formGroup.label,
       form_scheme_id: formScheme.id as number,
       fields: formGroup.fields,
     } as FormGroup);
-  });
 
-  const createdFormGroups = await Promise.all(formGroupsPromise);
-
-  for (let createdFormGroup of createdFormGroups) {
-    const fieldsPromise = createdFormGroup.fields.map((field) => {
-      return createFields({
+    for (let field of createdFormGroup.fields) {
+      await createFields({
         label: field.label,
-        component: field.component,
         form_group_id: createdFormGroup.id,
+        component: field.component,
         metadata: field.metadata,
       } as Field);
-    });
-
-    await Promise.all(fieldsPromise);
+    }
   }
 }

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ $1 = "--down" ]; then
+  sudo docker compose -f docker-compose.yml down
+  exit 0
+fi
+
+if [$1 = "--build"]; then
+    sudo docker compose -f docker-compose.yml up --build
+fi
+
+sudo docker compose -f docker-compose.yml up

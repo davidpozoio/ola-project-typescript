@@ -265,9 +265,9 @@
       "fields": [
         {
           "label": "Liste las empresas anteriores en las que ha trabajado",
-          "component": "input",
+          "component": "chip",
           "metadata": {
-            "type": "list/string"
+            "type": "string"
           }
         }
       ]
@@ -277,7 +277,7 @@
       "fields": [
         {
           "label": "Declaro que la információn proporcionada corresponde a la verdad y asumo las consecuencias legales si se demuestra lo contrario",
-          "component": "select",
+          "component": "check",
           "metadata": {
             "type": "boolean/check"
           }
