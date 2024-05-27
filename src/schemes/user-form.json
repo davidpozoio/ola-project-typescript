@@ -17,7 +17,7 @@
           "label": "Lugar",
           "component": "input",
           "metadata": {
-            "type": "text"
+            "type": "string"
           }
         },
         {
@@ -25,18 +25,6 @@
           "component": "input",
           "metadata": {
             "type": "date"
-          }
-        }
-      ]
-    },
-    {
-      "label": "Mis datos",
-      "fields": [
-        {
-          "label": "Nombres y Apellidos",
-          "component": "input",
-          "metadata": {
-            "type": "text"
           }
         }
       ]
@@ -102,25 +90,7 @@
         }
       ]
     },
-    {
-      "label": "Banco o cooperativa",
-      "fields": [
-        {
-          "label": "Nombre de banco o cooperativa",
-          "component": "input",
-          "metadata": {
-            "type": "string"
-          }
-        },
-        {
-          "label": "Número de cuenta",
-          "component": "input",
-          "metadata": {
-            "type": "string"
-          }
-        }
-      ]
-    },
+
     {
       "label": "Fisiológico",
       "fields": [

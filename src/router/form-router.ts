@@ -13,8 +13,13 @@ formRouter
   .get(
     requireAuth,
     checkRole([Roles.admin, Roles.sales]),
-    formController.findAll
+    formController.findAllMyForms
   );
+
+formRouter
+  .route("/all")
+  .get(requireAuth, checkRole([Roles.admin]), formController.findAll);
+
 formRouter.route("/user-form").get(requireAuth, formController.getUserForm);
 formRouter.route("/:id").get(requireAuth, formController.findById);
 

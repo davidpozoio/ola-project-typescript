@@ -5,10 +5,18 @@ import { Form } from "../types/form";
 import asyncErrorHandler from "../utils/asyncErrorHandler";
 
 class FormController {
-  findAll = asyncErrorHandler(async (req, res) => {
+  findAllMyForms = asyncErrorHandler(async (req, res) => {
     const forms = await formService.findAllByUserId(
       req.decodedToken?.id as number
     );
+
+    res.status(200).json({
+      forms,
+    });
+  });
+
+  findAll = asyncErrorHandler(async (req, res) => {
+    const forms = await formService.findAll();
 
     res.status(200).json({
       forms,

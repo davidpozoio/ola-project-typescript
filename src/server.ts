@@ -19,7 +19,7 @@ testConnection().then(async () => {
   });
   console.log("database initialized!");
   await startDefaultValues().catch((err) => {
-    console.log("///////////////////////////////", err);
+    console.log(err);
   });
   app.listen(ENV.PORT, () => {
     console.log(`the server has started in port ${ENV.PORT}`);
