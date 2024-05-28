@@ -21,3 +21,11 @@ services:
       - ./multimedia:/home/app/multimedia
     depends_on:
       - mysql-database
+  ola-frontend:
+    build:
+      context: ./ola-frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - 5173:5173
+    volumes:
+      - ./ola-frontend/src:/home/app/src

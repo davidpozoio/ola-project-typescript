@@ -6,7 +6,7 @@ import MultimediaRepository from "./multimedia-repository";
 export default class MysqlMultimediaRepository extends MultimediaRepository {
   async save(media: Multimedia): Promise<Multimedia> {
     const [createdMedia] = await pool.query<ResultSetHeader>(
-      "INSERT INTO multimedia (name, hash, users_id) VALUES (?, ?, ?)",
+      "INSERT INTO multimedia (name, hash, user_id) VALUES (?, ?, ?)",
       [media.name, media.hash, media.user_id]
     );
 
