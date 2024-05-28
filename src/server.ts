@@ -4,12 +4,14 @@ import startDB from "./db/db";
 import startDefaultValues from "./init/start-default-values";
 import testConnection from "./init/test-connection";
 import { TokenPayload } from "./types/token";
+import { User } from "./types/user";
 
 declare module "express" {
   interface Request {
     cookieJwt?: string;
     decodedToken?: TokenPayload;
     formId?: string | number;
+    user?: User;
   }
 }
 ///test until database is connected

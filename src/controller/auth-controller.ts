@@ -59,6 +59,30 @@ class AuthController {
       user,
     });
   });
+
+  verify = asyncErrorHandler(async (req, res) => {
+    const decodedToken = req.decodedToken;
+    const user = await userService.findById(decodedToken?.id);
+
+    user.password = undefined;
+
+    if (user.verified) {
+      res.status(200).json({
+        message: "the user is already verified",
+        user,
+      });
+      return;
+    }
+
+    await authService.verify(user);
+
+    user.verified = true;
+
+    res.status(200).json({
+      message: "the user was verified",
+      user,
+    });
+  });
 }
 
 const authController = new AuthController();

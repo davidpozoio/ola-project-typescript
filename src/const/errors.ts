@@ -112,6 +112,11 @@ const ERRORS: { [key: string]: ErrorData } = {
     statusCode: 404,
     message: "the file was not found",
   },
+  USER_FORM_NOT_DONE: {
+    errorCode: "9000",
+    statusCode: 400,
+    message: "you must complete the user form to get the verification",
+  },
 };
 
 export default ERRORS;

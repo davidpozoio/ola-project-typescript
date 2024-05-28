@@ -1,4 +1,5 @@
 import ERRORS from "../const/errors";
+import FORM_SCHEMES from "../const/form-schemes-ids";
 import { Blacklist } from "../types/blacklist";
 import { Form } from "../types/form";
 import { Roles, User } from "../types/user";
@@ -56,6 +57,19 @@ class AuthService {
       user_id: blacklist.user_id,
       token: blacklist.token,
     } as Blacklist);
+  }
+
+  async verify(user: User) {
+    const form = await formService.findByFormSchemeId(
+      FORM_SCHEMES.USER_FORM_ID,
+      { id: user.id as number }
+    );
+
+    if (!form.done) {
+      throw new HttpError(ERRORS.USER_FORM_NOT_DONE);
+    }
+
+    await userService.toogleVerification(true, { id: user.id as number });
   }
 }
 

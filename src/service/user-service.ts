@@ -1,4 +1,5 @@
 import ERRORS from "../const/errors";
+import { Owner } from "../respository/repository";
 import MysqlUserRepository from "../respository/user/mysql-user-repository";
 import { UserRepository } from "../respository/user/user-repository";
 import { User } from "../types/user";
@@ -51,6 +52,18 @@ class UserService extends UserRepository {
 
   async toggleAccessUser(access: boolean, userId: number): Promise<User> {
     return this.userRepository.toggleAccessUser(access, userId);
+  }
+
+  async toogleVerification(
+    verified: boolean,
+    owner?: Owner | undefined
+  ): Promise<User> {
+    const user = await this.userRepository.toogleVerification(verified, owner);
+    if (!user) {
+      throw new HttpError(ERRORS.USER_NOT_FOUND);
+    }
+
+    return user;
   }
 }
 

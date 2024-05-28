@@ -3,6 +3,7 @@ import authController from "../controller/auth-controller";
 import { body } from "express-validator";
 import { UserArea } from "../types/user";
 import requireAuth from "../middleware/require-auth";
+import requireAccess from "../middleware/require-access";
 
 const authRouter = Router();
 
@@ -26,6 +27,10 @@ authRouter
   );
 
 authRouter.route("/me").get(requireAuth, authController.athenticate);
+
+authRouter
+  .route("/verify")
+  .get(requireAuth, requireAccess, authController.verify);
 
 authRouter.route("/logout").get(requireAuth, authController.logout);
 

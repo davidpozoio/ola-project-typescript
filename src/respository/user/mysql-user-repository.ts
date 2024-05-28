@@ -2,6 +2,7 @@ import pool from "../../config/mysql-config";
 import { Multimedia } from "../../types/multimedia";
 import { User } from "../../types/user";
 import getNestedTables from "../../utils/get-nested-tables";
+import { Owner } from "../repository";
 import { UserRepository } from "./user-repository";
 import { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 
@@ -87,6 +88,25 @@ export default class MysqlUserRepository extends UserRepository {
 
     return {
       id: updatedUser.insertId,
+    } as User;
+  }
+
+  async toogleVerification(
+    verified: boolean,
+    owner?: Owner | undefined
+  ): Promise<User | undefined> {
+    const query = owner
+      ? "UPDATE user SET verified = ? WHERE id = ?"
+      : "UPDATE user SET verified = ?";
+    const params = owner ? [verified, owner.id] : [verified];
+    const [user] = await pool.query<ResultSetHeader>(query, params);
+
+    if (user.affectedRows === 0) {
+      return undefined;
+    }
+
+    return {
+      verified,
     } as User;
   }
 }
