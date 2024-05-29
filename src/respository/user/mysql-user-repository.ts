@@ -7,23 +7,44 @@ import { UserRepository } from "./user-repository";
 import { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 
 interface UserResult extends RowDataPacket {
-  users: User[];
+  user: User[];
+  document: Document[];
   multimedia: Multimedia[];
 }
 
 export default class MysqlUserRepository extends UserRepository {
   async findAll(): Promise<User[]> {
-    const [users] = await pool.query<User[]>("SELECT * FROM user");
-    return users;
+    const [users] = await pool.query<UserResult[]>({
+      sql: `
+      SELECT user.*, document.* FROM user
+      LEFT JOIN document
+      ON document.user_id = user.id`,
+      nestTables: true,
+    });
+
+    const values = await getNestedTables(
+      users,
+      [
+        {
+          nameTable: "document",
+          foreingTableName: "user",
+        },
+      ],
+      { recoverFrom: "user" }
+    );
+
+    return values;
   }
 
   async findById(id: string | number | undefined): Promise<User | undefined> {
     const [users] = await pool.query<UserResult[]>(
       {
         sql: `
-        SELECT user.*, multimedia.* FROM user
+        SELECT user.*, multimedia.*, document.* FROM user
           LEFT JOIN multimedia
           ON multimedia.user_id = user.id
+          LEFT JOIN document
+          ON document.user_id = user.id
           WHERE user.id = ?`,
         nestTables: true,
       },
@@ -32,7 +53,13 @@ export default class MysqlUserRepository extends UserRepository {
 
     const values = await getNestedTables(
       users,
-      [{ nameTable: "multimedia", foreingTableName: "user" }],
+      [
+        { nameTable: "multimedia", foreingTableName: "user" },
+        {
+          nameTable: "document",
+          foreingTableName: "user",
+        },
+      ],
       { recoverFrom: "user" }
     );
 

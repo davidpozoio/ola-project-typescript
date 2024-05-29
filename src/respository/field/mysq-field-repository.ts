@@ -36,21 +36,16 @@ export default class MysqlFieldRepository extends FieldRepository {
 
   async findAllBySchemeId(
     formSchemeId: string | number,
-    owner: Owner
+    owner?: Owner
   ): Promise<Field[]> {
     const [fields] = await pool.query<Field[]>(
-      {
-        sql: `
-      SELECT field.* FROM form
-      INNER JOIN form_scheme
-      ON form_scheme.id = form.form_scheme_id
+      ` SELECT field.* FROM form_scheme
       INNER JOIN form_group
       ON form_group.form_scheme_id = form_scheme.id
       INNER JOIN field
       ON field.form_group_id = form_group.id
       WHERE form_scheme.id = ?
-      `,
-      },
+        `,
       [formSchemeId]
     );
 

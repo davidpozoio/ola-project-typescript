@@ -12,6 +12,7 @@ import formSchemeRouter from "./router/form-scheme-router";
 import formRouter from "./router/form-router";
 import multimediaRouter from "./router/multimedia-router";
 import fieldRouter from "./router/field-router";
+import documentRouter from "./router/document-router";
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use(`${ENV.API_PREFIX}/users`, userRouter);
 app.use(`${ENV.API_PREFIX}/`, authRouter);
 app.use(`${ENV.API_PREFIX}/form-schemes`, formSchemeRouter);
 app.use(`${ENV.API_PREFIX}/forms`, formRouter);
+app.use(`${ENV.API_PREFIX}/documents`, documentRouter);
 app.use(`${ENV.API_PREFIX}/fields`, fieldRouter);
 app.use(`${ENV.API_PREFIX}/results`, resultRouter);
 

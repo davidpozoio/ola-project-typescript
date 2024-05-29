@@ -69,6 +69,17 @@ class AuthService {
       throw new HttpError(ERRORS.USER_FORM_NOT_DONE);
     }
 
+    if (user.documents.length === 0) {
+      throw new HttpError(ERRORS.USER_NEEDS_DOCUMENTS);
+    }
+
+    if (
+      !user.documents?.[0].name_card_back ||
+      !user.documents?.[0].name_card_front ||
+      !user.documents?.[0].name_video
+    ) {
+      throw new HttpError(ERRORS.USER_NEEDS_DOCUMENTS);
+    }
     await userService.toogleVerification(true, { id: user.id as number });
   }
 }

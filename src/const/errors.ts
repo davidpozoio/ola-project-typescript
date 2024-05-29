@@ -35,6 +35,11 @@ const ERRORS: { [key: string]: ErrorData } = {
     statusCode: 404,
     message: "the user is not verified, please send the form to verify",
   },
+  USER_NEEDS_DOCUMENTS: {
+    errorCode: "1006",
+    statusCode: 404,
+    message: "the user needs to provide card photo and testification video",
+  },
   JWT_NOT_PROVIDED: {
     errorCode: "2001",
     statusCode: 400,
