@@ -40,6 +40,21 @@ const ERRORS: { [key: string]: ErrorData } = {
     statusCode: 404,
     message: "the user needs to provide card photo and testification video",
   },
+  USER_HAS_ALREADY_CARD_IMAGES: {
+    errorCode: "1007",
+    statusCode: 400,
+    message: "the user has already card_id images",
+  },
+  USER_CARD_IMAGES_MUST_BE_TWO: {
+    errorCode: "1008",
+    statusCode: 400,
+    message: "it must be two images for user card_id",
+  },
+  USER_HAS_ALREADY_A_VIDEO: {
+    errorCode: "1009",
+    statusCode: 400,
+    message: "the user has already a video uploaded",
+  },
   JWT_NOT_PROVIDED: {
     errorCode: "2001",
     statusCode: 400,

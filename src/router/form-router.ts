@@ -8,13 +8,7 @@ import requireLinkHash from "../middleware/require-link-hash";
 
 const formRouter = Router();
 
-formRouter
-  .route("/")
-  .get(
-    requireAuth,
-    checkRole([Roles.admin, Roles.sales]),
-    formController.findAllMyForms
-  );
+formRouter.route("/").get(requireAuth, formController.findAllMyForms);
 
 formRouter
   .route("/all")

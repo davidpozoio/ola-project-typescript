@@ -1,5 +1,6 @@
 import { RowDataPacket } from "mysql2";
 import { Document } from "./documents";
+import { Multimedia } from "./multimedia";
 
 export interface User extends RowDataPacket {
   id: string | number | undefined;
@@ -11,6 +12,7 @@ export interface User extends RowDataPacket {
   has_access: boolean;
   verified: boolean;
   documents: Document[];
+  multimedias: Multimedia[];
 }
 
 export enum UserArea {

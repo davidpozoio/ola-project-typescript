@@ -39,7 +39,7 @@ app.use(`${ENV.API_PREFIX}/users`, userRouter);
 app.use(`${ENV.API_PREFIX}/`, authRouter);
 app.use(`${ENV.API_PREFIX}/form-schemes`, formSchemeRouter);
 app.use(`${ENV.API_PREFIX}/forms`, formRouter);
-app.use(`${ENV.API_PREFIX}/documents`, documentRouter);
+/* app.use(`${ENV.API_PREFIX}/documents`, documentRouter); */
 app.use(`${ENV.API_PREFIX}/fields`, fieldRouter);
 app.use(`${ENV.API_PREFIX}/results`, resultRouter);
 

@@ -1,19 +1,28 @@
 import express from "express";
-import { uploadFile } from "../config/multer-config";
+
 import multimediaController from "../controller/multimedia-controller";
-import { body } from "express-validator";
 import requireAuth from "../middleware/require-auth";
+import { uploadImage } from "../config/multer-config";
+import { uploadVideo } from "../config/multer-config-video";
 
 const multimediaRouter = express.Router();
 
 multimediaRouter.use("/", express.static("multimedia"));
+
 multimediaRouter
-  .route("/")
+  .route("/user-card")
   .post(
     requireAuth,
-    uploadFile.single("media"),
-    [body("name").isString().withMessage("name is required")],
-    multimediaController.save
+    uploadImage.array("userCard"),
+    multimediaController.saveCardImages
+  );
+
+multimediaRouter
+  .route("/video")
+  .post(
+    requireAuth,
+    uploadVideo.single("video"),
+    multimediaController.saveVideo
   );
 
 multimediaRouter

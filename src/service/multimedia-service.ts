@@ -4,6 +4,7 @@ import MysqlMultimediaRepository from "../respository/multimedia/mysql-multimedi
 import { Multimedia } from "../types/multimedia";
 import HttpError from "../utils/http-error";
 import fs from "fs/promises";
+import userService from "./user-service";
 
 class MultimediaService extends MultimediaRepository {
   constructor(private readonly multimediaRepository: MultimediaRepository) {
@@ -39,6 +40,49 @@ class MultimediaService extends MultimediaRepository {
     }
 
     return media;
+  }
+
+  async saveCardImages(files: Express.Multer.File[], userId: number | string) {
+    const user = await userService.findById(userId);
+    const cardImagesCount = user.multimedias.filter(
+      (file) => file.type === "card_id"
+    ).length;
+
+    if (cardImagesCount === 2) {
+      throw new HttpError(ERRORS.USER_HAS_ALREADY_CARD_IMAGES);
+    }
+    const multimedias: Multimedia[] = [];
+    for (let file of files as Express.Multer.File[]) {
+      multimedias.push(
+        await multimediaService.save({
+          hash: file.filename,
+          user_id: userId,
+          name: "card",
+          type: "card_id",
+        } as Multimedia)
+      );
+    }
+    return multimedias;
+  }
+
+  async saveVideo(file: Express.Multer.File, userId: number | string) {
+    const user = await userService.findById(userId);
+    const countVideo = user.multimedias.filter(
+      (file) => file.type === "video"
+    ).length;
+
+    if (countVideo === 1) {
+      throw new HttpError(ERRORS.USER_HAS_ALREADY_A_VIDEO);
+    }
+
+    const multimedia = await multimediaService.save({
+      hash: file.filename,
+      name: "video",
+      type: "video",
+      user_id: userId,
+    } as Multimedia);
+
+    return multimedia;
   }
 }
 

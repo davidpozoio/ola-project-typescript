@@ -3,6 +3,32 @@
   "label": "Formulario de usuario",
   "form_groups": [
     {
+      "label": "Mis datos",
+      "fields": [
+        {
+          "label": "Nombres completos",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        },
+        {
+          "label": "Apellidos completos",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        },
+        {
+          "label": "Cédula",
+          "component": "input",
+          "metadata": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
       "label": "Inicio",
       "fields": [
         {
@@ -82,10 +108,17 @@
       "label": "Tallas",
       "fields": [
         {
-          "label": "Calzado",
-          "component": "input",
+          "label": "Camisa",
+          "component": "select",
           "metadata": {
-            "type": "number"
+            "type": "string",
+            "options": [
+              { "value": "S", "label": "S" },
+              { "value": "M", "label": "M" },
+              { "value": "L", "label": "L" },
+              { "value": "XL", "label": "XL" },
+              { "value": "XLL", "label": "XLL" }
+            ]
           }
         }
       ]
@@ -231,7 +264,7 @@
       ]
     },
     {
-      "label": "Empresas anteriores (¿en qué empresas ha trabajado o realizado su pasantías antes?)",
+      "label": "Empresas anteriores (¿en qué empresas ha trabajado?)",
       "fields": [
         {
           "label": "Liste las empresas anteriores en las que ha trabajado",
